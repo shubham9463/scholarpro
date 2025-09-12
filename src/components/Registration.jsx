@@ -1,435 +1,354 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const RegistrationComponent = () => {
+const RegistrationForm = () => {
   const [activeTab, setActiveTab] = useState("school");
-
-  const [schoolStep, setSchoolStep] = useState(1);
-  const [studentStep, setStudentStep] = useState(1);
-
-  const [schoolForm, setSchoolForm] = useState({
+  const [formData, setFormData] = useState({
     schoolName: "",
-    officeNumber: "",
-    mobileNumber: "",
-    schoolAddress: "",
-    state: "",
-    district: "",
-    city: "",
-    taluka: "",
-    pincode: "",
+    mobile: "",
     schoolEmail: "",
-  });
-
-  const [studentForm, setStudentForm] = useState({
     studentName: "",
     parentName: "",
     parentEmail: "",
-    mobileNumber: "",
-    password: "",
     standard: "",
-    address: "",
-    city: "",
-    country: "",
-    pincode: "",
-    currency: "",
-    schoolName: "",
-    schoolAddress: "",
-    schoolCity: "",
-    schoolPincode: "",
-    academicYear: "",
+    studentMobile: "",
+    password: "",
   });
 
-  const states = [
-    { value: "maharashtra", label: "Maharashtra" },
-    { value: "gujarat", label: "Gujarat" },
-    { value: "delhi", label: "Delhi" },
-    { value: "karnataka", label: "Karnataka" },
-    { value: "tamilnadu", label: "Tamil Nadu" },
-    { value: "westbengal", label: "West Bengal" },
-    { value: "rajasthan", label: "Rajasthan" },
-    { value: "punjab", label: "Punjab" },
-  ];
+  const navigate = useNavigate();
 
-  const countries = [
-    { value: "india", label: "India" },
-    { value: "usa", label: "United States" },
-    { value: "uk", label: "United Kingdom" },
-    { value: "canada", label: "Canada" },
-    { value: "australia", label: "Australia" },
-  ];
-
-  const currencies = [
-    { value: "inr", label: "INR (₹)" },
-    { value: "usd", label: "USD ($)" },
-    { value: "eur", label: "EUR (€)" },
-    { value: "gbp", label: "GBP (£)" },
-  ];
-
-  const standards = Array.from({ length: 12 }, (_, i) => ({
-    value: (i + 1).toString(),
-    label: `Class ${i + 1}`,
-  }));
-
-  const academicYears = [
-    { value: "2024-25", label: "2024-25" },
-    { value: "2025-26", label: "2025-26" },
-    { value: "2026-27", label: "2026-27" },
-  ];
-
-  const handleSchoolChange = (e) => {
-    setSchoolForm({ ...schoolForm, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  const handleStudentChange = (e) => {
-    setStudentForm({ ...studentForm, [e.target.name]: e.target.value });
+  const handleSubmit = () => {
+    if (activeTab === "school") {
+      navigate("/school-registration", { state: formData });
+    } else {
+      navigate("/student-registration", { state: formData });
+    }
   };
 
-  const handleSchoolSubmit = (e) => {
-    e.preventDefault();
-    alert("School registration submitted successfully!");
+  // Styles
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    padding: '20px'
   };
 
-  const handleStudentSubmit = (e) => {
-    e.preventDefault();
-    alert("Student registration submitted successfully!");
+  const registrationBoxStyle = {
+    background: '#ffffff',
+    borderRadius: '16px',
+    boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+    overflow: 'hidden',
+    width: '100%',
+    maxWidth: '500px',
+    position: 'relative'
   };
 
-  const InputField = ({
-    label,
-    name,
-    type = "text",
-    value,
-    onChange,
-    options = null,
-    required = true,
-    fullWidth = false,
-  }) => (
-    <div className={`form-group ${fullWidth ? "full" : ""}`}>
-      {options ? (
-        <>
-          <label>{label}</label>
-          <select
-            name={name}
-            value={value}
-            onChange={onChange}
-            required={required}
-          >
-            <option value="">{`Select ${label}`}</option>
-            {options.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-        </>
-      ) : (
-        <>
-          <label>{label}</label>
-          <input
-            type={type}
-            name={name}
-            value={value}
-            onChange={onChange}
-            required={required}
-          />
-        </>
-      )}
-    </div>
-  );
+  const tabsStyle = {
+    display: 'flex',
+    background: '#f8f9ff'
+  };
 
-  // Split inputs into steps of 4
-  const schoolSteps = [
-    [
-      <InputField label="School Name" name="schoolName" value={schoolForm.schoolName} onChange={handleSchoolChange} />,
-      <InputField label="School Office Number" name="officeNumber" type="tel" value={schoolForm.officeNumber} onChange={handleSchoolChange} />,
-      <InputField label="Mobile Number" name="mobileNumber" type="tel" value={schoolForm.mobileNumber} onChange={handleSchoolChange} />,
-      <InputField label="State" name="state" value={schoolForm.state} onChange={handleSchoolChange} options={states} />,
-    ],
-    [
-      <InputField label="School Address" name="schoolAddress" value={schoolForm.schoolAddress} onChange={handleSchoolChange} fullWidth />,
-      <InputField label="District" name="district" value={schoolForm.district} onChange={handleSchoolChange} />,
-      <InputField label="City" name="city" value={schoolForm.city} onChange={handleSchoolChange} />,
-      <InputField label="Taluka" name="taluka" value={schoolForm.taluka} onChange={handleSchoolChange} />,
-    ],
-    [
-      <InputField label="Pincode" name="pincode" value={schoolForm.pincode} onChange={handleSchoolChange} />,
-      <InputField label="School Email ID" name="schoolEmail" type="email" value={schoolForm.schoolEmail} onChange={handleSchoolChange} />,
-    ],
-  ];
+  const tabStyle = {
+    flex: 1,
+    padding: '16px 24px',
+    border: 'none',
+    background: 'transparent',
+    color: '#64748b',
+    fontSize: '16px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    position: 'relative'
+  };
 
-  const studentSteps = [
-    [
-      <InputField label="Student Name" name="studentName" value={studentForm.studentName} onChange={handleStudentChange} />,
-      <InputField label="Parent Name" name="parentName" value={studentForm.parentName} onChange={handleStudentChange} />,
-      <InputField label="Parent Email ID" name="parentEmail" type="email" value={studentForm.parentEmail} onChange={handleStudentChange} />,
-      <InputField label="Mobile Number" name="mobileNumber" type="tel" value={studentForm.mobileNumber} onChange={handleStudentChange} />,
-    ],
-    [
-      <InputField label="Password" name="password" type="password" value={studentForm.password} onChange={handleStudentChange} />,
-      <InputField label="Standard" name="standard" value={studentForm.standard} onChange={handleStudentChange} options={standards} />,
-      <InputField label="Address" name="address" value={studentForm.address} onChange={handleStudentChange} fullWidth />,
-      <InputField label="City" name="city" value={studentForm.city} onChange={handleStudentChange} />,
-    ],
-    [
-      <InputField label="Country" name="country" value={studentForm.country} onChange={handleStudentChange} options={countries} />,
-      <InputField label="Pincode" name="pincode" value={studentForm.pincode} onChange={handleStudentChange} />,
-      <InputField label="Currency" name="currency" value={studentForm.currency} onChange={handleStudentChange} options={currencies} />,
-      <InputField label="School Name" name="schoolName" value={studentForm.schoolName} onChange={handleStudentChange} />,
-    ],
-    [
-      <InputField label="School Address" name="schoolAddress" value={studentForm.schoolAddress} onChange={handleStudentChange} fullWidth />,
-      <InputField label="School City" name="schoolCity" value={studentForm.schoolCity} onChange={handleStudentChange} />,
-      <InputField label="School Pincode" name="schoolPincode" value={studentForm.schoolPincode} onChange={handleStudentChange} />,
-      <InputField label="Academic Year" name="academicYear" value={studentForm.academicYear} onChange={handleStudentChange} options={academicYears} />,
-    ],
-  ];
+  const activeTabStyle = {
+    ...tabStyle,
+    color: '#667eea',
+    background: '#ffffff',
+    borderBottom: '3px solid #667eea'
+  };
+
+  const formContentStyle = {
+    padding: '40px 32px',
+    background: '#ffffff'
+  };
+
+  const titleStyle = {
+    fontSize: '24px',
+    fontWeight: '700',
+    color: '#1e293b',
+    marginBottom: '32px',
+    textAlign: 'center',
+    letterSpacing: '0.5px'
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '14px 16px',
+    marginBottom: '20px',
+    border: '2px solid #e2e8f0',
+    borderRadius: '10px',
+    fontSize: '16px',
+    color: '#374151',
+    background: '#ffffff',
+    transition: 'all 0.3s ease',
+    outline: 'none',
+    boxSizing: 'border-box'
+  };
+
+  const inputFocusStyle = {
+    borderColor: '#667eea',
+    boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)'
+  };
+
+  const selectStyle = {
+    ...inputStyle,
+    appearance: 'none',
+    backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6,9 12,15 18,9\'%3e%3c/polyline%3e%3c/svg%3e")',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right 12px center',
+    backgroundSize: '20px',
+    paddingRight: '40px'
+  };
+
+  const gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '0px',
+    marginBottom: '8px'
+  };
+
+  const signupBtnStyle = {
+    width: '100%',
+    padding: '16px',
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    color: 'white',
+    border: 'none',
+    borderRadius: '10px',
+    fontSize: '18px',
+    fontWeight: '700',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    letterSpacing: '1px',
+    marginTop: '12px',
+    textTransform: 'uppercase'
+  };
+
+  const signupBtnHoverStyle = {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)'
+  };
 
   return (
-    <div className="registration-container">
-      <div className="floating"></div>
-
-      <div className="registration-card">
+    <div style={containerStyle}>
+      <div style={registrationBoxStyle}>
         {/* Tabs */}
-        <div className="tab-bar">
+        <div style={tabsStyle}>
           <button
-            className={`tab-btn ${activeTab === "school" ? "active" : ""}`}
+            style={activeTab === "school" ? activeTabStyle : tabStyle}
             onClick={() => setActiveTab("school")}
+            onMouseOver={(e) => {
+              if (activeTab !== "school") {
+                e.target.style.background = '#f1f5f9';
+              }
+            }}
+            onMouseOut={(e) => {
+              if (activeTab !== "school") {
+                e.target.style.background = 'transparent';
+              }
+            }}
           >
             For School
           </button>
           <button
-            className={`tab-btn ${activeTab === "student" ? "active" : ""}`}
+            style={activeTab === "student" ? activeTabStyle : tabStyle}
             onClick={() => setActiveTab("student")}
+            onMouseOver={(e) => {
+              if (activeTab !== "student") {
+                e.target.style.background = '#f1f5f9';
+              }
+            }}
+            onMouseOut={(e) => {
+              if (activeTab !== "student") {
+                e.target.style.background = 'transparent';
+              }
+            }}
           >
             For Students
           </button>
         </div>
 
-        {/* Forms */}
-        <div className="form-wrapper">
-          {/* School */}
-          {activeTab === "school" && (
-            <form onSubmit={handleSchoolSubmit} className="fade-in">
-              <h2 className="form-title">REGISTER YOUR SCHOOL</h2>
-              <p className="form-subtitle">Step {schoolStep} of {schoolSteps.length}</p>
-
-              <div className="form-grid">{schoolSteps[schoolStep - 1]}</div>
-
-              <div className="form-nav">
-                {schoolStep > 1 && (
-                  <button type="button" className="nav-btn" onClick={() => setSchoolStep(schoolStep - 1)}>
-                    ⬅ Previous
-                  </button>
-                )}
-                {schoolStep < schoolSteps.length && (
-                  <button type="button" className="nav-btn" onClick={() => setSchoolStep(schoolStep + 1)}>
-                    Next ➡
-                  </button>
-                )}
-                {schoolStep === schoolSteps.length && (
-                  <button type="submit" className="submit-btn">SIGN UP</button>
-                )}
+        {/* Form */}
+        <div style={formContentStyle}>
+          {activeTab === "school" ? (
+            <>
+              <h2 style={titleStyle}>REGISTER YOUR SCHOOL</h2>
+              <input
+                type="text"
+                name="schoolName"
+                value={formData.schoolName}
+                onChange={handleChange}
+                placeholder="Enter School Name"
+                style={inputStyle}
+                onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = '#e2e8f0';
+                  e.target.style.boxShadow = 'none';
+                }}
+              />
+              <input
+                type="text"
+                name="mobile"
+                value={formData.mobile}
+                onChange={handleChange}
+                placeholder="Enter Principal's/School's Mobile Number"
+                style={inputStyle}
+                onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = '#e2e8f0';
+                  e.target.style.boxShadow = 'none';
+                }}
+              />
+              <input
+                type="email"
+                name="schoolEmail"
+                value={formData.schoolEmail}
+                onChange={handleChange}
+                placeholder="Enter School E-Mail ID"
+                style={inputStyle}
+                onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                onBlur={(e) => {
+                  e.target.style.borderColor = '#e2e8f0';
+                  e.target.style.boxShadow = 'none';
+                }}
+              />
+              <button 
+                style={signupBtnStyle}
+                onClick={handleSubmit}
+                onMouseOver={(e) => Object.assign(e.target.style, signupBtnHoverStyle)}
+                onMouseOut={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                SIGN UP
+              </button>
+            </>
+          ) : (
+            <>
+              <h2 style={titleStyle}>REGISTER NOW</h2>
+              <div style={gridStyle}>
+                <input
+                  type="text"
+                  name="studentName"
+                  value={formData.studentName}
+                  onChange={handleChange}
+                  placeholder="Enter Student's Name"
+                  style={inputStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#e2e8f0';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+                <input
+                  type="email"
+                  name="parentEmail"
+                  value={formData.parentEmail}
+                  onChange={handleChange}
+                  placeholder="Enter Parent's Email Id"
+                  style={inputStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#e2e8f0';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+                <input
+                  type="text"
+                  name="parentName"
+                  value={formData.parentName}
+                  onChange={handleChange}
+                  placeholder="Enter Parent's Name"
+                  style={inputStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#e2e8f0';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+                <select
+                  name="standard"
+                  value={formData.standard}
+                  onChange={handleChange}
+                  style={selectStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#e2e8f0';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                >
+                  <option value="">Select Standard</option>
+                  {[...Array(10)].map((_, i) => (
+                    <option key={i + 1} value={`Class ${i + 1}`}>
+                      Class {i + 1}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  name="studentMobile"
+                  value={formData.studentMobile}
+                  onChange={handleChange}
+                  placeholder="Enter Mobile Number"
+                  style={inputStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#e2e8f0';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Enter Password"
+                  style={inputStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#e2e8f0';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                />
               </div>
-
-              {schoolStep === schoolSteps.length && (
-                <p className="login-link">
-                  Already Registered? <a href="/login">LOGIN</a>
-                </p>
-              )}
-            </form>
-          )}
-
-          {/* Student */}
-          {activeTab === "student" && (
-            <form onSubmit={handleStudentSubmit} className="fade-in">
-              <h2 className="form-title">REGISTER NOW</h2>
-              <p className="form-subtitle">Step {studentStep} of {studentSteps.length}</p>
-
-              <div className="form-grid">{studentSteps[studentStep - 1]}</div>
-
-              <div className="form-nav">
-                {studentStep > 1 && (
-                  <button type="button" className="nav-btn" onClick={() => setStudentStep(studentStep - 1)}>
-                    ⬅ Previous
-                  </button>
-                )}
-                {studentStep < studentSteps.length && (
-                  <button type="button" className="nav-btn" onClick={() => setStudentStep(studentStep + 1)}>
-                    Next ➡
-                  </button>
-                )}
-                {studentStep === studentSteps.length && (
-                  <button type="submit" className="submit-btn">SIGN UP</button>
-                )}
-              </div>
-
-              {studentStep === studentSteps.length && (
-                <p className="login-link">
-                  Already Registered? <a href="/login">LOGIN</a>
-                </p>
-              )}
-            </form>
+              <button 
+                style={signupBtnStyle}
+                onClick={handleSubmit}
+                onMouseOver={(e) => Object.assign(e.target.style, signupBtnHoverStyle)}
+                onMouseOut={(e) => {
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
+                }}
+              >
+                SIGN UP
+              </button>
+            </>
           )}
         </div>
       </div>
-
-      <style>{`
-       .registration-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #3b82f6, #9333ea, #1e40af);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;   /* pushes everything to right */
-  padding: 16px 60px;          /* add some right padding so it doesn’t stick to edge */
-  position: relative;
-}
-
-        .floating::before, .floating::after {
-          content: "";
-          position: absolute;
-          border-radius: 50%;
-          background: rgba(255,255,255,0.1);
-          animation: pulse 6s infinite;
-        }
-        .floating::before {
-          width: 80px; height: 80px;
-          top: 15%; left: 10%;
-        }
-        .floating::after {
-          width: 100px; height: 100px;
-          bottom: 20%; right: 15%;
-          animation-delay: 2s;
-        }
-        @keyframes pulse {
-          0%,100% { transform: scale(1); opacity: 0.6; }
-          50% { transform: scale(1.2); opacity: 0.3; }
-        }
-        .registration-card {
-          background: rgba(255,255,255,0.95);
-          border-radius: 16px;
-          box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-          width: 100%;
-          max-width: 600px;
-          overflow: hidden;
-        }
-        .tab-bar {
-          display: flex;
-          background: linear-gradient(to right, #60a5fa, #06b6d4);
-        }
-        .tab-btn {
-          flex: 1;
-          padding: 14px;
-          font-size: 16px;
-          font-weight: 600;
-          color: white;
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s;
-          background: transparent;
-        }
-        .tab-btn.active {
-          background: linear-gradient(to right, #ec4899, #a78bfa);
-          transform: scale(1.05);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .form-wrapper {
-          padding: 20px;
-        }
-        .form-title {
-          text-align: center;
-          font-size: 22px;
-          font-weight: 700;
-          background: linear-gradient(to right, #2563eb, #9333ea);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          margin-bottom: 6px;
-        }
-        .form-subtitle {
-          text-align: center;
-          font-size: 14px;
-          color: #555;
-          margin-bottom: 20px;
-        }
-        .form-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 14px;
-          margin-bottom: 20px;
-        }
-        .form-group { display: flex; flex-direction: column; }
-        .form-group.full { grid-column: span 1; }
-        .form-group label {
-          font-size: 13px;
-          color: #444;
-          margin-bottom: 5px;
-        }
-        .form-group input, .form-group select {
-          padding: 10px;
-          border: 1px solid #e5e7eb;
-          border-radius: 8px;
-          font-size: 14px;
-          transition: all 0.2s;
-        }
-        .form-group input:focus, .form-group select:focus {
-          border-color: #2563eb;
-          box-shadow: 0 0 6px rgba(37,99,235,0.25);
-          outline: none;
-        }
-        .form-nav {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 12px;
-        }
-        .nav-btn {
-          padding: 10px 16px;
-          background: #e5e7eb;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          font-weight: 600;
-          transition: all 0.3s;
-        }
-        .nav-btn:hover {
-          background: #d1d5db;
-        }
-        .submit-btn {
-          width: 100%;
-          padding: 12px;
-          font-size: 16px;
-          font-weight: 600;
-          border: none;
-          border-radius: 10px;
-          background: linear-gradient(to right, #2563eb, #9333ea);
-          color: white;
-          cursor: pointer;
-          transition: all 0.3s;
-        }
-        .submit-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 14px rgba(0,0,0,0.2);
-        }
-        .login-link {
-          text-align: center;
-          font-size: 14px;
-          color: #444;
-          margin-top: 10px;
-        }
-        .login-link a {
-          color: #2563eb;
-          font-weight: 600;
-          text-decoration: none;
-        }
-        .login-link a:hover {
-          color: #9333ea;
-          text-decoration: underline;
-        }
-        .fade-in { animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(15px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
     </div>
   );
 };
 
-export default RegistrationComponent;
+export default RegistrationForm;

@@ -62,6 +62,7 @@ const OlympiadDropdown = ({
         position: 'absolute',
         top: '100%',
         left: '0',
+        transform: 'translateX(40px)', // Shift dropdown right
         zIndex: 1000,
         backgroundColor: 'white',
         boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1)',
@@ -70,13 +71,12 @@ const OlympiadDropdown = ({
         minWidth: '700px',
         opacity: showDropdown ? 1 : 0,
         visibility: showDropdown ? 'visible' : 'hidden',
-        transform: showDropdown ? 'translateY(0)' : 'translateY(-10px)',
         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         overflow: 'hidden'
       }}
     >
       <div style={{ display: 'flex' }}>
-        {/* Left Side - Olympiad Subjects */}
+        {/* Left: Olympiad Subjects */}
         <div style={{ 
           flex: 1, 
           padding: '24px',
@@ -97,6 +97,7 @@ const OlympiadDropdown = ({
             <Trophy size={20} />
             Olympiad Subjects
           </h3>
+
           {olympiadSubjects.map((subject, idx) => {
             const IconComponent = olympiadData[subject].icon;
             return (
@@ -108,7 +109,6 @@ const OlympiadDropdown = ({
                   margin: '6px 0',
                   borderRadius: '10px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   fontSize: '15px',
                   fontWeight: '600',
                   color: selectedOlympiad === subject ? 'white' : '#475569',
@@ -118,7 +118,8 @@ const OlympiadDropdown = ({
                   backgroundColor: selectedOlympiad === subject ? olympiadData[subject].color : 'transparent',
                   border: selectedOlympiad === subject ? `2px solid ${olympiadData[subject].color}` : '2px solid transparent',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
                   if (selectedOlympiad !== subject) {
@@ -126,8 +127,8 @@ const OlympiadDropdown = ({
                     e.target.style.borderColor = olympiadData[subject].color;
                     e.target.style.color = olympiadData[subject].color;
                     e.target.style.transform = 'translateX(6px)';
+                    e.target.style.boxShadow = `0 8px 25px ${olympiadData[subject].color}30`;
                   }
-                  e.target.style.boxShadow = `0 8px 25px ${olympiadData[subject].color}30`;
                 }}
                 onMouseLeave={(e) => {
                   if (selectedOlympiad !== subject) {
@@ -167,11 +168,10 @@ const OlympiadDropdown = ({
           })}
         </div>
 
-        {/* Right Side - Dynamic Class Selection */}
+        {/* Right: Class List */}
         <div style={{ 
           flex: 1, 
           padding: '24px',
-          backgroundColor: '#f8fafc',
           background: `linear-gradient(135deg, #f8fafc, ${olympiadData[selectedOlympiad].color}08)`
         }}>
           <h3 style={{ 
@@ -188,6 +188,7 @@ const OlympiadDropdown = ({
             {React.createElement(olympiadData[selectedOlympiad].icon, { size: 20 })}
             {selectedOlympiad}
           </h3>
+
           <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', 
@@ -201,7 +202,6 @@ const OlympiadDropdown = ({
                   padding: '12px 16px',
                   borderRadius: '10px',
                   cursor: 'pointer',
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                   fontSize: '14px',
                   fontWeight: '600',
                   color: '#64748b',
@@ -209,7 +209,8 @@ const OlympiadDropdown = ({
                   border: '2px solid #e2e8f0',
                   textAlign: 'center',
                   position: 'relative',
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = olympiadData[selectedOlympiad].color;
@@ -230,8 +231,7 @@ const OlympiadDropdown = ({
               </div>
             ))}
           </div>
-          
-          {/* Additional Info Section */}
+
           <div style={{
             marginTop: '20px',
             padding: '16px',
@@ -263,8 +263,7 @@ const OlympiadDropdown = ({
           </div>
         </div>
       </div>
-      
-      {/* CSS Animations */}
+
       <style>{`
         @keyframes pulse {
           0%, 100% { opacity: 1; transform: scale(1); }
