@@ -19,7 +19,7 @@ const SchoolLogin = () => {
       height: "400px",
       margin: "50px auto",
       padding: "60px",
-      background: "#cdde63ff",
+      background: "#988eebff",
       borderRadius: "10px",
       textAlign: "center",
       fontFamily: "Segoe UI, sans-serif",

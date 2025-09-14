@@ -1,35 +1,52 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import './App.css';
-import SchoolRegistrationForm from './components/pages/SchoolRegistrationForm.jsx';
-import StudentRegistration from './components/pages/StudentRegistration.jsx';
-import MainNavbar from './components/MainNavbar.jsx';
-import Footer from './components/Footer.jsx';
-import Registration from './components/Registration.jsx';
-import StudentLogin from './components/LoginPage/StudentLogin.jsx';
-import SchoolLogin from './components/LoginPage/SchoolLogin.jsx';
-import CoordinatorLogin from './components/LoginPage/CoordinatorLogin.jsx';
+import "./App.css";
 
-// import other components/pages as needed
+// Components
+import MainNavbar from "./components/MainNavbar.jsx";
+import Footer from "./components/Footer.jsx";
+import ServicesSection from "./components/ServicesSection.jsx";
+import AboutSection from "./components/AboutSection.jsx";
+import OlympiadInfo from "./components/OlympiadInfo.jsx";
+
+// Pages
+import Registration from "./components/Registration.jsx";
+import SchoolRegistrationForm from "./components/pages/SchoolRegistrationForm.jsx";
+import StudentRegistration from "./components/pages/StudentRegistration.jsx";
+
+// Logins
+import StudentLogin from "./components/LoginPage/StudentLogin.jsx";
+import SchoolLogin from "./components/LoginPage/SchoolLogin.jsx";
+import CoordinatorLogin from "./components/LoginPage/CoordinatorLogin.jsx";
 
 function App() {
   return (
     <Router>
-      <div>
+      <div className="app-container">
         <MainNavbar />
 
-      <Routes>
-  <Route path="/" element={<Registration />} />
+        <Routes>
+          {/* Home Page with Registration + Services */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Registration />
+                <ServicesSection />
+                <AboutSection />
+                <OlympiadInfo/>
+              </>
+            }
+          />
 
-  {/* Registration */}
-  <Route path="/school-registration" element={<SchoolRegistrationForm />} />
-  <Route path="/student-registration" element={<StudentRegistration />} />
+          {/* Registration */}
+          <Route path="/school-registration" element={<SchoolRegistrationForm />} />
+          <Route path="/student-registration" element={<StudentRegistration />} />
 
-  {/* Login */}
-  <Route path="/student-login" element={<StudentLogin />} />
-  <Route path="/school-login" element={<SchoolLogin />} />
-  <Route path="/coordinator-login" element={<CoordinatorLogin />} />
-</Routes>
-
+          {/* Logins */}
+          <Route path="/student-login" element={<StudentLogin />} />
+          <Route path="/school-login" element={<SchoolLogin />} />
+          <Route path="/coordinator-login" element={<CoordinatorLogin />} />
+        </Routes>
 
         <Footer />
       </div>
