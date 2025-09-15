@@ -1,21 +1,24 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { studentRegistration } from "../../api/studentApi";
+import { toast } from "react-toastify";
 
 const StudentRegistration = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const initialData = location.state || {};
 
   const [formData, setFormData] = useState({
     studentName: initialData.studentName || "",
     parentName: initialData.parentName || "",
-    parentEmail: initialData.parentEmail || "",
+    parentEmailId: initialData.parentEmailId || "",
     standard: initialData.standard || "",
-    studentMobile: initialData.studentMobile || "",
+    mobileNo: initialData.mobileNo || "",
     password: initialData.password || "",
     address: "",
     city: "",
     country: "india",
-    pincode: "",
+    pinCode: "",
     schoolName: "",
     schoolAddress: "",
     schoolCity: "",
@@ -32,12 +35,29 @@ const StudentRegistration = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    if (!formData.agreeTerms) {
-      alert("Please agree to the terms and conditions before submitting.");
+  const handleSubmit = async () => {
+    if (!formData) {
+      alert("Please enter data");
       return;
     }
-    alert("Student Registration Submitted: " + JSON.stringify(formData, null, 2));
+    try {
+      const response = await studentRegistration(formData);
+      console.log("Apply successfully:", response);
+      toast.success("Registration successfully!");
+      navigate("/");
+    } catch (error) {
+      console.error("Error:", error);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message); // ✅ backend ka message
+      } else {
+        toast.error("Failed to submit. Please try again.");
+      }
+    }
   };
 
   // ✅ Inline Styles
@@ -50,7 +70,7 @@ const StudentRegistration = () => {
       border: "1px solid #cbccceff",
       borderRadius: "10px",
       boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-       fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+      fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
       boxSizing: "border-box",
     },
     heading: {
@@ -104,7 +124,7 @@ const StudentRegistration = () => {
       cursor: "pointer",
       transition: "0.3s",
     },
-      loginLink: {
+    loginLink: {
       color: "#4a90e2",
       cursor: "pointer",
       fontWeight: "500",
@@ -149,7 +169,7 @@ const StudentRegistration = () => {
           style={styles.input}
           type="email"
           name="parentEmail"
-          value={formData.parentEmail}
+          value={formData.parentEmailId}
           onChange={handleChange}
           placeholder="Parent Email"
         />
@@ -168,7 +188,7 @@ const StudentRegistration = () => {
           style={styles.input}
           type="text"
           name="studentMobile"
-          value={formData.studentMobile}
+          value={formData.mobileNo}
           onChange={handleChange}
           placeholder="Mobile Number"
         />
@@ -208,7 +228,7 @@ const StudentRegistration = () => {
           style={styles.input}
           type="text"
           name="pincode"
-          value={formData.pincode}
+          value={formData.pinCode}
           onChange={handleChange}
           placeholder="Pincode"
         />
@@ -294,7 +314,9 @@ const StudentRegistration = () => {
       <button style={styles.button} onClick={handleSubmit}>
         Submit
       </button>
-       <p style={styles.para}>Already have an account ? <span style={styles.loginLink}>Login</span></p>
+      <p style={styles.para}>
+        Already have an account ? <span style={styles.loginLink}>Login</span>
+      </p>
     </div>
   );
 };

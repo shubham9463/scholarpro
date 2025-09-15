@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 // Components
@@ -33,14 +35,20 @@ function App() {
                 <Registration />
                 <ServicesSection />
                 <AboutSection />
-                <OlympiadInfo/>
+                <OlympiadInfo />
               </>
             }
           />
 
           {/* Registration */}
-          <Route path="/school-registration" element={<SchoolRegistrationForm />} />
-          <Route path="/student-registration" element={<StudentRegistration />} />
+          <Route
+            path="/school-registration"
+            element={<SchoolRegistrationForm />}
+          />
+          <Route
+            path="/student-registration"
+            element={<StudentRegistration />}
+          />
 
           {/* Logins */}
           <Route path="/student-login" element={<StudentLogin />} />
@@ -49,6 +57,8 @@ function App() {
         </Routes>
 
         <Footer />
+        {/* ✅ ToastContainer yaha rakho */}
+        <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </Router>
   );

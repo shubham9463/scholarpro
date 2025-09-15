@@ -1,4 +1,5 @@
 import React from "react";
+import { studentLogout } from "../api/studentApi";
 import {
   FaFacebookF,
   FaLinkedinIn,
@@ -7,8 +8,27 @@ import {
   FaPinterestP,
   FaXTwitter,
 } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 const Footer = () => {
+
+
+  const handleLogout = async () => {
+    try {
+      const res = await studentLogout();
+      if (res.status === 200) {
+        localStorage.removeItem("isLoggedIn");
+        toast.success("Logged out successfull");
+      } else {
+        toast.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Error during logout:", error);
+      toast.error("Something went wrong during logout");
+    }
+  };
+
+
   const columnStyle = {
     flex: "1",
     minWidth: "220px",
@@ -149,12 +169,14 @@ const Footer = () => {
       <div style={columnStyle}>
         <h3 style={headingStyle}>Contact Info</h3>
         <p style={contactStyle}>
-          <b>Toll Free:</b> <span style={{ color: "#f39c12" }}>1800 266 9192</span>
+          <b>Toll Free:</b>{" "}
+          <span style={{ color: "#f39c12" }}>1800 266 9192</span>
         </p>
         <p style={contactStyle}>022 2517 0711</p>
         <p style={contactStyle}>022 2517 0811</p>
         <p style={contactStyle}>
-          <b>Mobile:</b> <span style={{ color: "#f39c12" }}>+91 9987930600</span>
+          <b>Mobile:</b>{" "}
+          <span style={{ color: "#f39c12" }}>+91 9987930600</span>
         </p>
         <p style={contactStyle}>+91 9987621382</p>
         <p style={contactStyle}>
@@ -162,47 +184,53 @@ const Footer = () => {
         </p>
         <p style={contactStyle}>registration@indiantalent.org</p>
         <p style={contactStyle}>toppers@indiantalent.org</p>
+        <button onClick={handleLogout}>Logout</button>
       </div>
 
       {/* Address + Social Media */}
       <div style={columnStyle}>
         <h3 style={headingStyle}>Indian Talent</h3>
         <p style={contactStyle}>
-          No. 1005, Kailas Corporate Lounge, Veer Savarkar Marg,  
-          Powai Vikhroli Link Road, Vikhroli(W), Mumbai - 400079
+          No. 1005, Kailas Corporate Lounge, Veer Savarkar Marg, Powai Vikhroli
+          Link Road, Vikhroli(W), Mumbai - 400079
         </p>
 
         <div style={{ display: "flex", gap: "12px", marginTop: "15px" }}>
-          {[FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaPinterestP, FaXTwitter].map(
-            (Icon, idx) => (
-              <a
-                key={idx}
-                href="#"
-                style={{
-                  color: "#fff",
-                  fontSize: "18px",
-                  border: "1px solid #fff",
-                  borderRadius: "50%",
-                  width: "35px",
-                  height: "35px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  transition: "all 0.3s ease",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.background = "#f39c12";
-                  e.currentTarget.style.color = "#0b3c87";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.color = "#fff";
-                }}
-              >
-                <Icon />
-              </a>
-            )
-          )}
+          {[
+            FaFacebookF,
+            FaLinkedinIn,
+            FaInstagram,
+            FaYoutube,
+            FaPinterestP,
+            FaXTwitter,
+          ].map((Icon, idx) => (
+            <a
+              key={idx}
+              href="#"
+              style={{
+                color: "#fff",
+                fontSize: "18px",
+                border: "1px solid #fff",
+                borderRadius: "50%",
+                width: "35px",
+                height: "35px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transition: "all 0.3s ease",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = "#f39c12";
+                e.currentTarget.style.color = "#0b3c87";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#fff";
+              }}
+            >
+              <Icon />
+            </a>
+          ))}
         </div>
       </div>
     </footer>

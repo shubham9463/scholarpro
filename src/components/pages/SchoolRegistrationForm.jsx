@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { schoolRegistration } from "../../api/schoolApi";
+import { toast } from "react-toastify";
 
 const SchoolRegistrationForm = () => {
   const location = useLocation();
   const initialData = location.state || {};
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     schoolName: initialData.schoolName || "",
-    mobile: initialData.mobile || "",
-    schoolEmail: initialData.schoolEmail || "",
+    mobileNo: initialData.mobileNo || "",
+    schoolEmailId: initialData.schoolEmailId || "",
     schoolAddress: "",
+    password: "",
     state: "",
     district: "",
     city: "",
@@ -26,8 +30,29 @@ const SchoolRegistrationForm = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    alert("School Registration Submitted: " + JSON.stringify(formData, null, 2));
+  const handleSubmit = async () => {
+    if (!formData) {
+      toast.error("Please enter data");
+      return;
+    }
+    try {
+      const response = await schoolRegistration(formData);
+      console.log("Apply successfully:", response);
+      toast.success("Registration successfully!");
+      navigate("/");
+    } catch (error) {
+      console.error("Error:", error);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message); // ✅ backend ka message
+      } else {
+        toast.error("Failed to submit. Please try again.");
+      }
+    }
   };
 
   // Inline styles
@@ -136,6 +161,16 @@ const SchoolRegistrationForm = () => {
           placeholder="School Name"
         />
       </div>
+      <div style={styles.formRow}>
+        <input
+          style={styles.input}
+          type="text"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Password"
+        />
+      </div>
 
       <div style={styles.formRow}>
         <input
@@ -149,8 +184,8 @@ const SchoolRegistrationForm = () => {
         <input
           style={styles.input}
           type="text"
-          name="mobile"
-          value={formData.mobile}
+          name="mobileNo"
+          value={formData.mobileNo}
           onChange={handleChange}
           placeholder="Mobile"
         />
@@ -219,8 +254,8 @@ const SchoolRegistrationForm = () => {
         <input
           style={styles.input}
           type="email"
-          name="schoolEmail"
-          value={formData.schoolEmail}
+          name="schoolEmailId"
+          value={formData.schoolEmailId}
           onChange={handleChange}
           placeholder="School Email"
         />
@@ -243,7 +278,11 @@ const SchoolRegistrationForm = () => {
       {/* ✅ Notes */}
       <div style={styles.noteBox}>
         <p style={styles.noteHeading}>NOTE:</p>
-        <p>1. If you are already registered, <span style={styles.loginLink}>click here</span> to log in with your school code.</p>
+        <p>
+          1. If you are already registered,{" "}
+          <span style={styles.loginLink}>click here</span> to log in with your
+          school code.
+        </p>
         <p>2. Please fill the below Registration Form from desktop only.</p>
       </div>
     </div>
