@@ -234,6 +234,7 @@ const ServicesSection = () => {
           fontWeight: "1000",
           color: "#0f0e0eff",
           marginBottom: "50px",
+          
         }}
       >
         Our Services

@@ -29,7 +29,7 @@ const OlympiadInfo = () => {
   return (
     <div
       style={{
-        backgroundColor: "#f5f9fc",
+        backgroundColor: "#e8f0f7ff",
         padding: "60px 20px",
         display: "flex",
         flexDirection: "column",

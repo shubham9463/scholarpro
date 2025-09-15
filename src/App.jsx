@@ -7,6 +7,7 @@ import Footer from "./components/Footer.jsx";
 import ServicesSection from "./components/ServicesSection.jsx";
 import AboutSection from "./components/AboutSection.jsx";
 import OlympiadInfo from "./components/OlympiadInfo.jsx";
+import CardsSection from "./components/CardsSection.jsx";
 
 // Pages
 import Registration from "./components/Registration.jsx";
@@ -17,6 +18,7 @@ import StudentRegistration from "./components/pages/StudentRegistration.jsx";
 import StudentLogin from "./components/LoginPage/StudentLogin.jsx";
 import SchoolLogin from "./components/LoginPage/SchoolLogin.jsx";
 import CoordinatorLogin from "./components/LoginPage/CoordinatorLogin.jsx";
+import { Car } from "lucide-react";
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
                 <ServicesSection />
                 <AboutSection />
                 <OlympiadInfo/>
+                <CardsSection />
               </>
             }
           />
