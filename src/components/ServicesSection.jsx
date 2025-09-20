@@ -10,7 +10,7 @@ const ServiceCard = ({ image, title, items, buttonText }) => {
         background: "#fff",
         borderRadius: "14px",
         boxShadow: hover
-          ? "0 8px 18px rgba(20, 248, 20, 0.97)"
+          ? "0 8px 18px rgba(56, 58, 56, 0.97)"
           : "0 4px 10px rgba(0,0,0,0.15)",
         padding: "20px",
         textAlign: "center",

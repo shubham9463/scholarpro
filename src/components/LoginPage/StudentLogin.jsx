@@ -1,25 +1,58 @@
 import React, { useState } from "react";
+import { studentLogin } from "../../api/studentApi.js";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const StudentLogin = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ identifier: "", password: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Student Login: " + JSON.stringify(formData));
+
+    try {
+      let payload = { password: formData.password };
+      if (formData.identifier.includes("@")) {
+        payload.emailId = formData.identifier;
+      } else {
+        payload.mobileNo = formData.identifier;
+      }
+
+      const res = await studentLogin(payload);
+
+      if (res.data.success) {
+        localStorage.setItem("studentToken", res.data.token);
+        toast.success("Login Successfull");
+        navigate("/");
+      } else {
+        toast.error(res.data.message || "Login failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Failed to submit. Please try again.");
+      }
+    }
   };
 
   const styles = {
     container: {
-       width: "290px",
+      width: "290px",
       height: "400px",
       margin: "50px auto",
       padding: "60px",
-      background: "#1f3a93", // blue
+      background: "#1f3a93",
       borderRadius: "20px",
       textAlign: "center",
       color: "#fff",
@@ -39,7 +72,7 @@ const StudentLogin = () => {
       borderBottom: "1px solid #ddd",
       outline: "none",
       fontSize: "14px",
-        boxSizing: "border-box",
+      boxSizing: "border-box",
     },
     button: {
       marginTop: "20px",
@@ -52,7 +85,7 @@ const StudentLogin = () => {
       fontWeight: "700",
       cursor: "pointer",
     },
-   note: {
+    note: {
       background: "yellow",
       color: "#000",
       padding: "10px",
@@ -69,9 +102,9 @@ const StudentLogin = () => {
         <input
           style={styles.input}
           type="text"
-          name="email"
+          name="identifier"
           placeholder="Mobile / Email"
-          value={formData.email}
+          value={formData.identifier}
           onChange={handleChange}
         />
         <input
@@ -82,14 +115,22 @@ const StudentLogin = () => {
           value={formData.password}
           onChange={handleChange}
         />
-        <button type="submit" style={styles.button}>LOG IN NOW</button>
+        <button type="submit" style={styles.button}>
+          LOG IN NOW
+        </button>
         <p style={{ marginTop: "15px" }}>
           New to Indian Talent Olympiad?{" "}
-          <strong style={{ color: "#fff" }}>Register Now</strong>
+          <strong
+            style={{ color: "#fff", cursor: "pointer" }}
+            onClick={() => navigate("/student-registration")}
+          >
+            Register Now
+          </strong>
         </p>
       </form>
       <div style={styles.note}>
-        NOTE: This login is exclusively for individual students who have registered online.
+        NOTE: This login is exclusively for individual students who have
+        registered online.
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const MainNavbar = () => {
   const [showDetailsDropdown, setShowDetailsDropdown] = useState(false);
   const [showGalleryDropdown, setShowGalleryDropdown] = useState(false);
   const [selectedOlympiad, setSelectedOlympiad] = useState("English Olympiad");
-  const [menuOpen, setMenuOpen] = useState(false); // 👈 mobile toggle
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Refs for timeout management
   const olympiadTimeoutRef = useRef(null);
@@ -88,11 +88,12 @@ const MainNavbar = () => {
           }}
         >
           <div
+            className="main-navbar-wrapper"
             style={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              padding: "16px 0",
+              padding: "16px 0", // original inline (CSS overrides below)
             }}
           >
             {/* Logo */}
@@ -243,6 +244,27 @@ const MainNavbar = () => {
           .hamburger {
             display: block !important;
           }
+        }
+
+        /* ✅ Slimmer navbar height */
+        .main-navbar-wrapper {
+          padding: 6px 0 !important; /* reduce top-bottom space */
+        }
+
+        /* ✅ Make logo a bit smaller */
+        .main-navbar-wrapper .logo-box {
+          padding: 4px 10px !important; 
+        }
+
+        /* ✅ Make registration buttons smaller */
+        .main-navbar-wrapper .registration-buttons button {
+          padding: 6px 12px !important;
+          font-size: 14px !important;
+        }
+
+        /* ✅ Adjust dropdown so it stays aligned */
+        .main-navbar-wrapper + .desktop-only > div {
+          top: calc(100% - 6px) !important; 
         }
       `}</style>
     </div>

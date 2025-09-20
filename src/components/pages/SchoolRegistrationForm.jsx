@@ -1,15 +1,19 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { schoolRegistration } from "../../api/schoolApi";
+import { toast } from "react-toastify";
 
 const SchoolRegistrationForm = () => {
   const location = useLocation();
   const initialData = location.state || {};
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     schoolName: initialData.schoolName || "",
-    mobile: initialData.mobile || "",
-    schoolEmail: initialData.schoolEmail || "",
+    mobileNo: initialData.mobileNo || "",
+    schoolEmailId: initialData.schoolEmailId || "",
     schoolAddress: "",
+    password: "",
     state: "",
     district: "",
     city: "",
@@ -26,8 +30,29 @@ const SchoolRegistrationForm = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    alert("School Registration Submitted: " + JSON.stringify(formData, null, 2));
+  const handleSubmit = async () => {
+    if (!formData) {
+      toast.error("Please enter data");
+      return;
+    }
+    try {
+      const response = await schoolRegistration(formData);
+      console.log("Apply successfully:", response);
+      toast.success("Registration successfully!");
+      navigate("/");
+    } catch (error) {
+      console.error("Error:", error);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Failed to submit. Please try again.");
+      }
+    }
   };
 
   // Inline styles
@@ -60,12 +85,21 @@ const SchoolRegistrationForm = () => {
       fontStyle: "italic",
     },
     formRow: {
-      display: "flex", // ✅ side by side
-      gap: "20px", // ✅ space between inputs
+      display: "flex",
+      gap: "20px",
       marginBottom: "15px",
     },
     input: {
-      flex: 1, // ✅ take equal space
+      flex: 1,
+      padding: "12px 14px",
+      border: "1px solid #ccc",
+      borderRadius: "6px",
+      outline: "none",
+      fontSize: "14px",
+      boxSizing: "border-box",
+    },
+    halfInput: {
+      flex: 1,
       padding: "12px 14px",
       border: "1px solid #ccc",
       borderRadius: "6px",
@@ -114,6 +148,7 @@ const SchoolRegistrationForm = () => {
       color: "#4a90e2",
       cursor: "pointer",
       fontWeight: "500",
+      textDecoration: "underline",
     },
   };
 
@@ -125,15 +160,23 @@ const SchoolRegistrationForm = () => {
         <p style={styles.subHeading}>[For Annual Olympiad 2025-26]</p>
       </div>
 
-      {/* ✅ Input fields */}
+      {/* ✅ School Name + Password side by side */}
       <div style={styles.formRow}>
         <input
-          style={styles.input}
+          style={styles.halfInput}
           type="text"
           name="schoolName"
           value={formData.schoolName}
           onChange={handleChange}
           placeholder="School Name"
+        />
+        <input
+          style={styles.halfInput}
+          type="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Password"
         />
       </div>
 
@@ -149,8 +192,8 @@ const SchoolRegistrationForm = () => {
         <input
           style={styles.input}
           type="text"
-          name="mobile"
-          value={formData.mobile}
+          name="mobileNo"
+          value={formData.mobileNo}
           onChange={handleChange}
           placeholder="Mobile"
         />
@@ -219,8 +262,8 @@ const SchoolRegistrationForm = () => {
         <input
           style={styles.input}
           type="email"
-          name="schoolEmail"
-          value={formData.schoolEmail}
+          name="schoolEmailId"
+          value={formData.schoolEmailId}
           onChange={handleChange}
           placeholder="School Email"
         />
@@ -243,7 +286,16 @@ const SchoolRegistrationForm = () => {
       {/* ✅ Notes */}
       <div style={styles.noteBox}>
         <p style={styles.noteHeading}>NOTE:</p>
-        <p>1. If you are already registered, <span style={styles.loginLink}>click here</span> to log in with your school code.</p>
+        <p>
+          1. If you are already registered,{" "}
+          <span
+            style={styles.loginLink}
+            onClick={() => navigate("/school-login")}
+          >
+            click here
+          </span>{" "}
+          to log in with your school code.
+        </p>
         <p>2. Please fill the below Registration Form from desktop only.</p>
       </div>
     </div>

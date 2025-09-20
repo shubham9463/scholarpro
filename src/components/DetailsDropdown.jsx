@@ -45,7 +45,7 @@ const DetailsDropdown = ({ showDropdown, onItemSelect, onMouseEnter, onMouseLeav
       style={{
         position: 'absolute',
         top: '100%',
-        left: '0',
+       
         zIndex: 1000,
         backgroundColor: 'white',
         boxShadow: '0 20px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1)',

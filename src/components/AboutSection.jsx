@@ -93,7 +93,7 @@ const AboutSection = () => {
           }}
         >
           <h3
-            style={{
+style={{
               fontSize: "18px",
               fontWeight: "700",
               color: "#1a73e8",

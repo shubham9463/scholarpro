@@ -1,53 +1,98 @@
-import React from 'react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Logo = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/"); // home pe redirect
+  };
+
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div style={{ 
-        background: 'linear-gradient(135deg, #ffffff, #f8fafc)',
-        border: '2px solid #e2e8f0',
-        padding: '16px 20px',
-        borderRadius: '16px',
-        boxShadow: '0 8px 25px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
-        transition: 'all 0.3s ease',
-        cursor: 'pointer'
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-2px)';
-        e.currentTarget.style.boxShadow = '0 12px 35px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9)';
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9)';
-      }}>
-        <div style={{ textAlign: 'left' }}>
-          <div style={{ 
-            fontSize: '28px', 
-            fontWeight: '800', 
-            background: 'linear-gradient(135deg, #f97316, #ea580c)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            letterSpacing: '-0.5px'
-          }}>ITO</div>
-          <div style={{ 
-            fontSize: '11px', 
-            color: '#64748b',
-            fontWeight: '600',
-            textTransform: 'uppercase',
-            letterSpacing: '0.5px',
-            marginTop: '2px'
-          }}>World's No. 1</div>
-          <div style={{ 
-            fontSize: '13px', 
-            fontWeight: '700', 
-            color: '#1e293b',
-            textTransform: 'uppercase',
-            letterSpacing: '0.25px',
-            marginTop: '4px'
-          }}>INDIAN TALENT OLYMPIAD</div>
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <div
+        style={{
+          background: "#fff",
+          border: "2px solid #000",
+          padding: "8px 18px",
+          borderRadius: "12px",
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          fontFamily: "'Times New Roman', serif",
+          transition: "all 0.4s ease",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
+        }}
+        onClick={handleClick}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = "translateY(-3px) scale(1.05)";
+          e.currentTarget.style.boxShadow =
+            "0 8px 20px rgba(0, 0, 0, 0.15), 0 0 12px rgba(0,0,0,0.1)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = "translateY(0) scale(1)";
+          e.currentTarget.style.boxShadow =
+            "0 4px 12px rgba(0, 0, 0, 0.08)";
+        }}
+      >
+        {/* Left side bold "MM" */}
+        <div
+          style={{
+            fontSize: "24px",
+            fontWeight: "900",
+            color: "#000",
+            borderRight: "2px solid #000",
+            paddingRight: "10px",
+            marginRight: "8px",
+            letterSpacing: "1px",
+            animation: "pulse 2s infinite",
+          }}
+        >
+          MM
+        </div>
+
+        {/* Right side text */}
+        <div
+          style={{
+            fontSize: "18px",
+            fontWeight: "700",
+            color: "#000",
+            letterSpacing: "1px",
+            whiteSpace: "nowrap",
+            position: "relative",
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              background: "linear-gradient(90deg, #ff6a00, #ff3c00)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              animation: "shine 3s linear infinite",
+              fontWeight: "800",
+            }}
+          >
+            Minds Marathon
+          </span>
         </div>
       </div>
+
+      {/* Inline keyframes */}
+      <style>
+        {`
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+          }
+
+          @keyframes shine {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+          }
+        `}
+      </style>
     </div>
   );
 };

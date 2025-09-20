@@ -27,7 +27,7 @@ const CardsSection = () => {
     flexDirection: "column",
     justifyContent: "space-between",
     fontFamily: "Arial, sans-serif",
-    boxShadow: "20px 30px rgba(0, 0, 0, 0.15)",
+    boxShadow: "10px 10px rgba(0, 0, 0, 0.15)",
     marginBottom: "80px",
   };
 

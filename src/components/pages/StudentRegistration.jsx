@@ -1,27 +1,31 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { studentRegistration } from "../../api/studentApi";
+import { toast } from "react-toastify";
 
 const StudentRegistration = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const initialData = location.state || {};
 
   const [formData, setFormData] = useState({
     studentName: initialData.studentName || "",
     parentName: initialData.parentName || "",
-    parentEmail: initialData.parentEmail || "",
+    parentEmailId: initialData.parentEmailId || "",
     standard: initialData.standard || "",
-    studentMobile: initialData.studentMobile || "",
+    mobileNo: initialData.mobileNo || "",
     password: initialData.password || "",
     address: "",
     city: "",
     country: "india",
-    pincode: "",
+    pinCode: "",
     schoolName: "",
     schoolAddress: "",
     schoolCity: "",
     schoolPincode: "",
     academicYear: "2025-26",
     agreeTerms: false,
+    currency: "Rupees",
   });
 
   const handleChange = (e) => {
@@ -32,12 +36,29 @@ const StudentRegistration = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    if (!formData.agreeTerms) {
-      alert("Please agree to the terms and conditions before submitting.");
+  const handleSubmit = async () => {
+    if (!formData) {
+      alert("Please enter data");
       return;
     }
-    alert("Student Registration Submitted: " + JSON.stringify(formData, null, 2));
+    try {
+      const response = await studentRegistration(formData);
+      console.log("Apply successfully:", response);
+      toast.success("Registration successfully!");
+      navigate("/"); // ✅ After successful registration
+    } catch (error) {
+      console.error("Error:", error);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Failed to submit. Please try again.");
+      }
+    }
   };
 
   // ✅ Inline Styles
@@ -50,7 +71,7 @@ const StudentRegistration = () => {
       border: "1px solid #cbccceff",
       borderRadius: "10px",
       boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-       fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+      fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
       boxSizing: "border-box",
     },
     heading: {
@@ -104,7 +125,7 @@ const StudentRegistration = () => {
       cursor: "pointer",
       transition: "0.3s",
     },
-      loginLink: {
+    loginLink: {
       color: "#4a90e2",
       cursor: "pointer",
       fontWeight: "500",
@@ -117,12 +138,36 @@ const StudentRegistration = () => {
       fontSize: "15px",
       fontWeight: "600",
       transition: "0.3s",
+      textAlign: "center",
+    },
+    label: {
+      fontSize: "14px",
+      fontWeight: "600",
+      marginBottom: "5px",
+      display: "block",
+      color: "#222",
     },
   };
 
   return (
     <div style={styles.container}>
       <h2 style={styles.heading}>Student Registration Form 2025-26</h2>
+
+      {/* ✅ Currency Select */}
+      <div style={{ marginBottom: "20px" }}>
+        <label style={styles.label}>Select Currency</label>
+        <select
+          style={styles.select}
+          name="currency"
+          value={formData.currency}
+          onChange={handleChange}
+        >
+          <option value="Rupees">Rupees</option>
+          <option value="Dollar">Dollar</option>
+          <option value="Euro">Euro</option>
+          <option value="Pound">Pound</option>
+        </select>
+      </div>
 
       {/* Basic Student Info */}
       <div style={styles.formRow}>
@@ -148,8 +193,8 @@ const StudentRegistration = () => {
         <input
           style={styles.input}
           type="email"
-          name="parentEmail"
-          value={formData.parentEmail}
+          name="parentEmailId"
+          value={formData.parentEmailId}
           onChange={handleChange}
           placeholder="Parent Email"
         />
@@ -167,8 +212,8 @@ const StudentRegistration = () => {
         <input
           style={styles.input}
           type="text"
-          name="studentMobile"
-          value={formData.studentMobile}
+          name="mobileNo"
+          value={formData.mobileNo}
           onChange={handleChange}
           placeholder="Mobile Number"
         />
@@ -207,8 +252,8 @@ const StudentRegistration = () => {
         <input
           style={styles.input}
           type="text"
-          name="pincode"
-          value={formData.pincode}
+          name="pinCode"
+          value={formData.pinCode}
           onChange={handleChange}
           placeholder="Pincode"
         />
@@ -294,7 +339,15 @@ const StudentRegistration = () => {
       <button style={styles.button} onClick={handleSubmit}>
         Submit
       </button>
-       <p style={styles.para}>Already have an account ? <span style={styles.loginLink}>Login</span></p>
+      <p style={styles.para}>
+        Already have an account ?{" "}
+        <span
+          style={styles.loginLink}
+          onClick={() => navigate("/student-login")}
+        >
+          Login
+        </span>
+      </p>
     </div>
   );
 };

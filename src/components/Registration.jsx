@@ -5,8 +5,8 @@ const RegistrationForm = () => {
   const [activeTab, setActiveTab] = useState("school");
   const [formData, setFormData] = useState({
     schoolName: "",
-    mobile: "",
-    schoolEmail: "",
+    mobileNo: "",
+    schoolEmailId: "",
     studentName: "",
     parentName: "",
     parentEmail: "",
@@ -34,155 +34,139 @@ const RegistrationForm = () => {
 
   // Styles
   const containerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    display: "flex",
+    justifyContent: "flex-end",
+   alignItems: "flex-start",
+    minHeight: "63vh",
+    background: "#690B0D",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    padding: '20px'
+    padding: "20px",
   };
 
   const registrationBoxStyle = {
-    background: '#ffffff',
-    borderRadius: '16px',
-    boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-    overflow: 'hidden',
-    width: '100%',
-    maxWidth: '500px',
-    position: 'relative'
+    background: "#ffffff",
+    borderRadius: "0px",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+    overflow: "hidden",
+    width: "380px", // fixed width like screenshot
+    minHeight: "400px", 
+    position: "relative",
   };
 
   const tabsStyle = {
-    display: 'flex',
-    background: '#f8f9ff'
+    display: "flex",
+    background: "#222", // dark bg like screenshot
   };
 
   const tabStyle = {
     flex: 1,
-    padding: '16px 24px',
-    border: 'none',
-    background: 'transparent',
-    color: '#64748b',
-    fontSize: '16px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    position: 'relative'
+    padding: "12px 16px",
+    border: "none",
+    background: "transparent",
+    color: "#ccc",
+    fontSize: "15px",
+    fontWeight: "600",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
   };
 
   const activeTabStyle = {
     ...tabStyle,
-    color: '#667eea',
-    background: '#ffffff',
-    borderBottom: '3px solid #667eea'
+    background: activeTab === "school" ? "#fbbf24" : "#374151", // yellow for school, grey for student
+    color: "#000",
+    fontWeight: "700",
   };
 
   const formContentStyle = {
-    padding: '40px 32px',
-    background: '#ffffff'
+    padding: "24px 28px", // reduced padding
+    background: "#ffffff",
   };
 
   const titleStyle = {
-    fontSize: '24px',
-    fontWeight: '700',
-    color: '#1e293b',
-    marginBottom: '32px',
-    textAlign: 'center',
-    letterSpacing: '0.5px'
+    fontSize: "22px",
+    fontWeight: "700",
+    color: "#1e293b",
+    marginBottom: "24px",
+    textAlign: "center",
+    letterSpacing: "0.5px",
   };
 
   const inputStyle = {
-    width: '100%',
-    padding: '14px 16px',
-    marginBottom: '20px',
-    border: '2px solid #e2e8f0',
-    borderRadius: '10px',
-    fontSize: '16px',
-    color: '#374151',
-    background: '#ffffff',
-    transition: 'all 0.3s ease',
-    outline: 'none',
-    boxSizing: 'border-box'
+    width: "100%",
+    padding: "12px 14px",
+    marginBottom: "12px",
+    border: "1px solid #000", // dark border
+    borderRadius: "4px", // square-ish
+    fontSize: "13px",
+    color: "#374151",
+    background: "#ffffff",
+    outline: "none",
+    boxSizing: "border-box",
   };
 
   const inputFocusStyle = {
-    borderColor: '#667eea',
-    boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)'
+    borderColor: "#0d3b8c",
+    boxShadow: "0 0 0 2px rgba(13, 59, 140, 0.15)",
   };
 
   const selectStyle = {
     ...inputStyle,
-    appearance: 'none',
-    backgroundImage: 'url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3e%3cpolyline points=\'6,9 12,15 18,9\'%3e%3c/polyline%3e%3c/svg%3e")',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 12px center',
-    backgroundSize: '20px',
-    paddingRight: '40px'
+    appearance: "none",
+    backgroundImage:
+      "url(\"data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e\")",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right 12px center",
+    backgroundSize: "18px",
+    paddingRight: "36px",
   };
 
   const gridStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '0px',
-    marginBottom: '8px'
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "8px",
+    marginBottom: "8px",
   };
 
   const signupBtnStyle = {
-    width: '100%',
-    padding: '16px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    color: 'white',
-    border: 'none',
-    borderRadius: '10px',
-    fontSize: '18px',
-    fontWeight: '700',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease',
-    letterSpacing: '1px',
-    marginTop: '12px',
-    textTransform: 'uppercase'
-  };
-
-  const signupBtnHoverStyle = {
-    transform: 'translateY(-2px)',
-    boxShadow: '0 10px 25px rgba(102, 126, 234, 0.3)'
+    width: "100%",
+    padding: "12px",
+    background: "#0d3b8c", // dark blue like screenshot
+    color: "white",
+    border: "none",
+    borderRadius: "2px", // sharp edges
+    fontSize: "16px",
+    fontWeight: "600",
+    cursor: "pointer",
+    marginTop: "8px",
+    textTransform: "uppercase",
   };
 
   return (
     <div style={containerStyle}>
+       {/* Left headline */}
+    <h1
+      style={{
+        flex: 1,
+        color: "#d77b7b", 
+        fontSize: "35px",
+        fontWeight: "800",
+        margin: "40px 20px 0 150px",
+      }}
+    >
+      MINDS MARATHON World's Biggest Olympiad
+    </h1>
       <div style={registrationBoxStyle}>
         {/* Tabs */}
         <div style={tabsStyle}>
           <button
             style={activeTab === "school" ? activeTabStyle : tabStyle}
             onClick={() => setActiveTab("school")}
-            onMouseOver={(e) => {
-              if (activeTab !== "school") {
-                e.target.style.background = '#f1f5f9';
-              }
-            }}
-            onMouseOut={(e) => {
-              if (activeTab !== "school") {
-                e.target.style.background = 'transparent';
-              }
-            }}
           >
             For School
           </button>
           <button
             style={activeTab === "student" ? activeTabStyle : tabStyle}
             onClick={() => setActiveTab("student")}
-            onMouseOver={(e) => {
-              if (activeTab !== "student") {
-                e.target.style.background = '#f1f5f9';
-              }
-            }}
-            onMouseOut={(e) => {
-              if (activeTab !== "student") {
-                e.target.style.background = 'transparent';
-              }
-            }}
           >
             For Students
           </button>
@@ -190,6 +174,7 @@ const RegistrationForm = () => {
 
         {/* Form */}
         <div style={formContentStyle}>
+          
           {activeTab === "school" ? (
             <>
               <h2 style={titleStyle}>REGISTER YOUR SCHOOL</h2>
@@ -202,8 +187,8 @@ const RegistrationForm = () => {
                 style={inputStyle}
                 onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
                 onBlur={(e) => {
-                  e.target.style.borderColor = '#e2e8f0';
-                  e.target.style.boxShadow = 'none';
+                  e.target.style.borderColor = "#000";
+                  e.target.style.boxShadow = "none";
                 }}
               />
               <input
@@ -215,8 +200,8 @@ const RegistrationForm = () => {
                 style={inputStyle}
                 onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
                 onBlur={(e) => {
-                  e.target.style.borderColor = '#e2e8f0';
-                  e.target.style.boxShadow = 'none';
+                  e.target.style.borderColor = "#000";
+                  e.target.style.boxShadow = "none";
                 }}
               />
               <input
@@ -228,19 +213,11 @@ const RegistrationForm = () => {
                 style={inputStyle}
                 onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
                 onBlur={(e) => {
-                  e.target.style.borderColor = '#e2e8f0';
-                  e.target.style.boxShadow = 'none';
+                  e.target.style.borderColor = "#000";
+                  e.target.style.boxShadow = "none";
                 }}
               />
-              <button 
-                style={signupBtnStyle}
-                onClick={handleSubmit}
-                onMouseOver={(e) => Object.assign(e.target.style, signupBtnHoverStyle)}
-                onMouseOut={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = 'none';
-                }}
-              >
+              <button style={signupBtnStyle} onClick={handleSubmit}>
                 SIGN UP
               </button>
             </>
@@ -255,11 +232,6 @@ const RegistrationForm = () => {
                   onChange={handleChange}
                   placeholder="Enter Student's Name"
                   style={inputStyle}
-                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = '#e2e8f0';
-                    e.target.style.boxShadow = 'none';
-                  }}
                 />
                 <input
                   type="email"
@@ -268,11 +240,6 @@ const RegistrationForm = () => {
                   onChange={handleChange}
                   placeholder="Enter Parent's Email Id"
                   style={inputStyle}
-                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = '#e2e8f0';
-                    e.target.style.boxShadow = 'none';
-                  }}
                 />
                 <input
                   type="text"
@@ -281,22 +248,12 @@ const RegistrationForm = () => {
                   onChange={handleChange}
                   placeholder="Enter Parent's Name"
                   style={inputStyle}
-                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = '#e2e8f0';
-                    e.target.style.boxShadow = 'none';
-                  }}
                 />
                 <select
                   name="standard"
                   value={formData.standard}
                   onChange={handleChange}
                   style={selectStyle}
-                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = '#e2e8f0';
-                    e.target.style.boxShadow = 'none';
-                  }}
                 >
                   <option value="">Select Standard</option>
                   {[...Array(10)].map((_, i) => (
@@ -312,11 +269,6 @@ const RegistrationForm = () => {
                   onChange={handleChange}
                   placeholder="Enter Mobile Number"
                   style={inputStyle}
-                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = '#e2e8f0';
-                    e.target.style.boxShadow = 'none';
-                  }}
                 />
                 <input
                   type="password"
@@ -325,22 +277,9 @@ const RegistrationForm = () => {
                   onChange={handleChange}
                   placeholder="Enter Password"
                   style={inputStyle}
-                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = '#e2e8f0';
-                    e.target.style.boxShadow = 'none';
-                  }}
                 />
               </div>
-              <button 
-                style={signupBtnStyle}
-                onClick={handleSubmit}
-                onMouseOver={(e) => Object.assign(e.target.style, signupBtnHoverStyle)}
-                onMouseOut={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = 'none';
-                }}
-              >
+              <button style={signupBtnStyle} onClick={handleSubmit}>
                 SIGN UP
               </button>
             </>

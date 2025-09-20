@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SchoolLogin = () => {
   const [formData, setFormData] = useState({ code: "", password: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +17,7 @@ const SchoolLogin = () => {
 
   const styles = {
     container: {
-       width: "290px",
+      width: "290px",
       height: "400px",
       margin: "50px auto",
       padding: "60px",
@@ -24,7 +26,6 @@ const SchoolLogin = () => {
       textAlign: "center",
       fontFamily: "Segoe UI, sans-serif",
       boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-
     },
     heading: {
       fontWeight: "1000",
@@ -40,7 +41,7 @@ const SchoolLogin = () => {
       borderRadius: "6px",
       outline: "none",
       fontSize: "14px",
-        boxSizing: "border-box",
+      boxSizing: "border-box",
     },
     button: {
       marginTop: "20px",
@@ -88,11 +89,18 @@ const SchoolLogin = () => {
         </button>
         <p style={{ marginTop: "15px" }}>
           New to Indian Talent Olympiad?{" "}
-          <strong style={{ color: "#7b3fe4" }}>Register Your School</strong>
+          <strong
+            style={{ color: "#7b3fe4", cursor: "pointer" }}
+            onClick={() => navigate("/school-registration")}
+          >
+            Register Your School
+          </strong>
         </p>
       </form>
       <div style={styles.note}>
-        NOTE: To log in to the school dashboard, enter your School Code (shared via Email and SMS) as your username, and the school Pincode as your password.
+        NOTE: To log in to the school dashboard, enter your School Code (shared
+        via Email and SMS) as your username, and the school Pincode as your
+        password.
       </div>
     </div>
   );

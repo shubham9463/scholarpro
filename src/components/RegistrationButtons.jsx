@@ -41,7 +41,7 @@ const RegistrationButtons = () => {
                   background: button.color,
                   color: 'white',
                   padding: '12px 18px',
-                  borderRadius: '12px',
+                  borderRadius: '5px',
                   fontWeight: '600',
                   fontSize: '13px',
                   border: 'none',
@@ -58,14 +58,6 @@ const RegistrationButtons = () => {
                   textAlign: 'center',
                 }}
                 onClick={() => setShowLoginDropdown(!showLoginDropdown)}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-3px) scale(1.02)';
-                  e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0) scale(1)';
-                  e.target.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
-                }}
               >
                 <IconComponent size={14} />
                 <span>{button.text}</span>
@@ -78,7 +70,7 @@ const RegistrationButtons = () => {
                     top: '110%',
                     left: 0,
                     width: '100%',
-                    borderRadius: '12px',
+                    borderRadius: '2px',
                     overflow: 'hidden',
                     zIndex: 1000,
                     display: 'flex',
@@ -109,14 +101,6 @@ const RegistrationButtons = () => {
                           boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
                           transition: 'all 0.3s ease',
                         }}
-                        onMouseEnter={(e) => {
-                          e.target.style.transform = 'translateY(-2px) scale(1.02)';
-                          e.target.style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.transform = 'translateY(0) scale(1)';
-                          e.target.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
-                        }}
                       >
                         {option.text}
                       </button>
@@ -136,7 +120,7 @@ const RegistrationButtons = () => {
                 background: button.color,
                 color: 'white',
                 padding: '12px 18px',
-                borderRadius: '12px',
+                borderRadius: '5px',
                 fontWeight: '600',
                 fontSize: '13px',
                 border: 'none',
@@ -151,14 +135,6 @@ const RegistrationButtons = () => {
                 width: '100%',
                 justifyContent: 'center',
                 textAlign: 'center',
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-3px) scale(1.02)';
-                e.target.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.2)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0) scale(1)';
-                e.target.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
               }}
             >
               <IconComponent size={14} />
