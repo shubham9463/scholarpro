@@ -34,12 +34,11 @@ const AwardFunctions = () => {
     border: "1px solid #eee",
     borderRadius: "6px",
     overflow: "hidden",
-    boxShadow: "0px 4px 8px rgba(0,0,0,0.08)",
+    boxShadow: "0px 4px 8px rgba(0,0,0,0.15)", // keep only one
     textAlign: "center",
     background: "#fff",
     transition: "transform 0.3s ease",
-    boxShadow: "10px 10px rgba(0, 0, 0, 0.15)",
-    boderRadiousColor: "#a00931ff"
+    // ❌ removed duplicate + wrong property
   };
 
   const imageStyle = {

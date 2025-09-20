@@ -13,11 +13,11 @@ const CardsSection = () => {
   
   };
 
-  const cardStyle = {
+ const cardStyle = {
     width: "420px",
     border: "1px solid #cde",
     borderRadius: "10px",
-    boxShadow: "0px 8px 12px rgba(0,0,0,0.15)",
+    boxShadow: "0px 8px 12px rgba(0,0,0,0.15)", // keep only one
     overflow: "hidden",
     backgroundColor: "#fefdfdff",
     textAlign: "center",
@@ -27,7 +27,6 @@ const CardsSection = () => {
     flexDirection: "column",
     justifyContent: "space-between",
     fontFamily: "Arial, sans-serif",
-    boxShadow: "10px 10px rgba(0, 0, 0, 0.15)",
     marginBottom: "80px",
   };
 

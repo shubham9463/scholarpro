@@ -169,7 +169,7 @@ const Footer = () => {
       <div style={columnStyle}>
         <h3 style={headingStyle}>Contact Info</h3>
         <p style={contactStyle}>
-          <b>Toll Free:</b>{" "}
+          <b>Tol Free:</b>{" "}
           <span style={{ color: "#f39c12" }}>1800 266 9192</span>
         </p>
         <p style={contactStyle}>022 2517 0711</p>
