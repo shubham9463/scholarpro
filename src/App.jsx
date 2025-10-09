@@ -214,16 +214,16 @@ function App() {
          
          
           <Route path="/computer-Olympiad" element={<ComputerOlympiad />} />
-          <Route path="/computer-class-1" element={<Class1Page />} />
-          <Route path="/computer-class-2" element={<Class2Page />} />
-          <Route path="/computer-class-3" element={<Class3Page />} />     
-          <Route path="/computer-class-4" element={<Class4Page />} />
-          <Route path="/computer-class-5" element={<Class5Page />} />
-          <Route path="/computer-class-6" element={<Class6Page />} />
-          <Route path="/computer-class-7" element={<Class7Page />} />
-          <Route path="/computer-class-8" element={<Class8Page />} />
-          <Route path="/computer-class-9" element={<Class9Page />} />
-          <Route path="/computer-class-10" element={<Class10Page />} />
+<Route path="/computer-class-1" element={<ComputerClass1Page />} />
+<Route path="/computer-class-2" element={<ComputerClass2Page />} />
+<Route path="/computer-class-3" element={<ComputerClass3Page />} />
+<Route path="/computer-class-4" element={<ComputerClass4Page />} />
+<Route path="/computer-class-5" element={<ComputerClass5Page />} />
+<Route path="/computer-class-6" element={<ComputerClass6Page />} />
+<Route path="/computer-class-7" element={<ComputerClass7Page />} />
+<Route path="/computer-class-8" element={<ComputerClass8Page />} />
+<Route path="/computer-class-9" element={<ComputerClass9Page />} />
+<Route path="/computer-class-10" element={<ComputerClass10Page />} />
 
           <Route path="/essay-Olympiad" element={<EssayOlympiad />} />
           <Route path="/essay-class-1" element={<EssayClass1Page />} />
