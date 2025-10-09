@@ -21,16 +21,16 @@ import SchoolRegistrationForm from "./components/pages/SchoolRegistrationForm.js
 import StudentRegistration from "./components/pages/StudentRegistration.jsx";
 
 import ScienceOlympiad from "./components/TabPage/OlympiadPages/SciencePages/ScienceOlympiad.jsx";
-import Class1Page from "./components/TabPage/OlympiadPages/SciencePages/Class1Page.jsx";
-import Class2Page from "./components/TabPage/OlympiadPages/SciencePages/Class2Page.jsx";
-import Class3Page from "./components/TabPage/OlympiadPages/SciencePages/Class3Page.jsx";
-import Class4Page from "./components/TabPage/OlympiadPages/SciencePages/Class4Page.jsx";
-import Class5Page from "./components/TabPage/OlympiadPages/SciencePages/Class5Page.jsx";
-import Class6Page from "./components/TabPage/OlympiadPages/SciencePages/Class6Page.jsx";
-import Class7Page from "./components/TabPage/OlympiadPages/SciencePages/Class7Page.jsx";
-import Class8Page from "./components/TabPage/OlympiadPages/SciencePages/Class8Page.jsx";
-import Class9Page from "./components/TabPage/OlympiadPages/SciencePages/Class9Page.jsx";
-import Class10Page from "./components/TabPage/OlympiadPages/SciencePages/Class10Page.jsx";
+import Class1Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass1Page.jsx";
+import Class2Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass2Page.jsx";
+import Class3Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass3Page.jsx";
+import Class4Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass4Page.jsx";
+import Class5Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass5Page.jsx";
+import Class6Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass6Page.jsx";
+import Class7Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass7Page.jsx";
+import Class8Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass8Page.jsx";
+import Class9Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass9Page.jsx";
+import Class10Page from "./components/TabPage/OlympiadPages/SciencePages/ScienceClass10Page.jsx";
 
 // Maths Olympiad Pages
 import MathsOlympiad from "./components/TabPage/OlympiadPages/MathsPages/MathsOlympiad.jsx";
