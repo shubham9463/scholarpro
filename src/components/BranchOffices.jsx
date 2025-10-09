@@ -212,30 +212,7 @@ export default function BranchOffices() {
             <MessageCircle size={28} color="white" />
           </div>
 
-          {/* Scroll to Top Button */}
-          <div style={{
-            width: '60px',
-            height: '60px',
-            backgroundColor: '#4a5568',
-            borderRadius: '50%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            boxShadow: '0 8px 20px rgba(74, 85, 104, 0.3)',
-            transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-          }}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'scale(1.1)';
-            e.currentTarget.style.boxShadow = '0 12px 25px rgba(74, 85, 104, 0.4)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'scale(1)';
-            e.currentTarget.style.boxShadow = '0 8px 20px rgba(74, 85, 104, 0.3)';
-          }}>
-            <ArrowUp size={28} color="white" />
-          </div>
+          
         </div>
       </div>
     </div>

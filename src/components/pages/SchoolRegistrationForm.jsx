@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { schoolRegistration } from "../../api/schoolApi";
 import { toast } from "react-toastify";
@@ -152,16 +152,63 @@ const SchoolRegistrationForm = () => {
     },
   };
 
+  // ✅ Responsive CSS injected dynamically (for iPhone 12 Pro)
+  useEffect(() => {
+    const styleTag = document.createElement("style");
+    styleTag.innerHTML = `
+      @media (max-width: 400px) {
+        .school-form-container {
+          width: 90% !important;
+          padding: 20px !important;
+          margin: 20px auto !important;
+        }
+
+        .school-form-row {
+          flex-direction: column !important;
+          gap: 10px !important;
+        }
+
+        .school-form-input,
+        .school-form-select {
+          width: 100% !important;
+          font-size: 14px !important;
+        }
+
+        .school-form-button {
+          width: 100% !important;
+          padding: 12px !important;
+          font-size: 16px !important;
+        }
+
+        .school-form-heading {
+          font-size: 22px !important;
+        }
+
+        .school-form-subheading {
+          font-size: 15px !important;
+        }
+
+        .note-box {
+          font-size: 13px !important;
+        }
+      }
+    `;
+    document.head.appendChild(styleTag);
+    return () => document.head.removeChild(styleTag);
+  }, []);
+
   return (
-    <div style={styles.container}>
-      {/* ✅ Heading */}
+    <div style={styles.container} className="school-form-container">
       <div style={styles.headingBox}>
-        <h2 style={styles.mainHeading}>School Olympiad Registration Form</h2>
-        <p style={styles.subHeading}>[For Annual Olympiad 2025-26]</p>
+        <h2 style={styles.mainHeading} className="school-form-heading">
+          School Olympiad Registration Form
+        </h2>
+        <p style={styles.subHeading} className="school-form-subheading">
+          [For Annual Olympiad 2025-26]
+        </p>
       </div>
 
-      {/* ✅ School Name + Password side by side */}
-      <div style={styles.formRow}>
+      <div style={styles.formRow} className="school-form-row">
         <input
           style={styles.halfInput}
           type="text"
@@ -169,6 +216,7 @@ const SchoolRegistrationForm = () => {
           value={formData.schoolName}
           onChange={handleChange}
           placeholder="School Name"
+          className="school-form-input"
         />
         <input
           style={styles.halfInput}
@@ -177,10 +225,11 @@ const SchoolRegistrationForm = () => {
           value={formData.password}
           onChange={handleChange}
           placeholder="Password"
+          className="school-form-input"
         />
       </div>
 
-      <div style={styles.formRow}>
+      <div style={styles.formRow} className="school-form-row">
         <input
           style={styles.input}
           type="text"
@@ -188,6 +237,7 @@ const SchoolRegistrationForm = () => {
           value={formData.schoolOfficeNumber}
           onChange={handleChange}
           placeholder="School Office Number"
+          className="school-form-input"
         />
         <input
           style={styles.input}
@@ -196,10 +246,11 @@ const SchoolRegistrationForm = () => {
           value={formData.mobileNo}
           onChange={handleChange}
           placeholder="Mobile"
+          className="school-form-input"
         />
       </div>
 
-      <div style={styles.formRow}>
+      <div style={styles.formRow} className="school-form-row">
         <input
           style={styles.input}
           type="text"
@@ -207,20 +258,48 @@ const SchoolRegistrationForm = () => {
           value={formData.schoolAddress}
           onChange={handleChange}
           placeholder="Address"
+          className="school-form-input"
         />
         <select
           style={styles.select}
           name="state"
           value={formData.state}
           onChange={handleChange}
+          className="school-form-select"
         >
           <option value="">Select State</option>
           <option value="Maharashtra">Maharashtra</option>
           <option value="Gujarat">Gujarat</option>
+          <option value="Andhra Pradesh">Andhra Pradesh</option>
+          <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+          <option value="Assam">Assam</option>
+          <option value="Bihar">Bihar</option>
+          <option value="Chhattisgarh">Chhattisgarh</option>
+          <option value="Goa">Goa</option>
+          <option value="Haryana">Haryana</option>
+          <option value="Himachal Pradesh">Himachal Pradesh</option>
+          <option value="Jharkhand">Jharkhand</option>
+          <option value="Karnataka">Karnataka</option>
+          <option value="Kerala">Kerala</option>
+          <option value="Madhya Pradesh">Madhya Pradesh</option>
+          <option value="Manipur">Manipur</option>
+          <option value="Meghalaya">Meghalaya</option>
+          <option value="Mizoram">Mizoram</option>
+          <option value="Nagaland">Nagaland</option>
+          <option value="Odisha">Odisha</option>
+          <option value="Punjab">Punjab</option>
+          <option value="Rajasthan">Rajasthan</option>
+          <option value="Sikkim">Sikkim</option>
+          <option value="Tamil Nadu">Tamil Nadu</option>
+          <option value="Telangana">Telangana</option>
+          <option value="Tripura">Tripura</option>
+          <option value="Uttar Pradesh">Uttar Pradesh</option>
+          <option value="Uttarakhand">Uttarakhand</option>
+          <option value="West Bengal">West Bengal</option>
         </select>
       </div>
 
-      <div style={styles.formRow}>
+      <div style={styles.formRow} className="school-form-row">
         <input
           style={styles.input}
           type="text"
@@ -228,6 +307,7 @@ const SchoolRegistrationForm = () => {
           value={formData.district}
           onChange={handleChange}
           placeholder="District"
+          className="school-form-input"
         />
         <input
           style={styles.input}
@@ -236,10 +316,11 @@ const SchoolRegistrationForm = () => {
           value={formData.city}
           onChange={handleChange}
           placeholder="City"
+          className="school-form-input"
         />
       </div>
 
-      <div style={styles.formRow}>
+      <div style={styles.formRow} className="school-form-row">
         <input
           style={styles.input}
           type="text"
@@ -247,6 +328,7 @@ const SchoolRegistrationForm = () => {
           value={formData.taluka}
           onChange={handleChange}
           placeholder="Taluka"
+          className="school-form-input"
         />
         <input
           style={styles.input}
@@ -255,10 +337,11 @@ const SchoolRegistrationForm = () => {
           value={formData.pinCode}
           onChange={handleChange}
           placeholder="Pin Code"
+          className="school-form-input"
         />
       </div>
 
-      <div style={styles.formRow}>
+      <div style={styles.formRow} className="school-form-row">
         <input
           style={styles.input}
           type="email"
@@ -266,25 +349,29 @@ const SchoolRegistrationForm = () => {
           value={formData.schoolEmailId}
           onChange={handleChange}
           placeholder="School Email"
+          className="school-form-input"
         />
         <select
           style={styles.select}
           name="modeOfExam"
           value={formData.modeOfExam}
           onChange={handleChange}
+          className="school-form-select"
         >
           <option value="OFFLINE">Offline</option>
           <option value="ONLINE">Online</option>
         </select>
       </div>
 
-      {/* ✅ Submit Button */}
-      <button style={styles.button} onClick={handleSubmit}>
+      <button
+        style={styles.button}
+        onClick={handleSubmit}
+        className="school-form-button"
+      >
         Submit
       </button>
 
-      {/* ✅ Notes */}
-      <div style={styles.noteBox}>
+      <div style={styles.noteBox} className="note-box">
         <p style={styles.noteHeading}>NOTE:</p>
         <p>
           1. If you are already registered,{" "}
@@ -296,7 +383,7 @@ const SchoolRegistrationForm = () => {
           </span>{" "}
           to log in with your school code.
         </p>
-        <p>2. Please fill the below Registration Form from desktop only.</p>
+        <p>2. Please fill the above Registration Form from desktop only.</p>
       </div>
     </div>
   );

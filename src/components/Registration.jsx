@@ -32,30 +32,41 @@ const RegistrationForm = () => {
     }
   };
 
-  // Styles
+  // ---------- Styles ----------
   const containerStyle = {
     display: "flex",
     justifyContent: "flex-end",
-   alignItems: "flex-start",
+    alignItems: "flex-start",
     minHeight: "63vh",
-    background: "#690B0D",
+    background: "linear-gradient(145deg, #6c0d0f, #4d0709)", // subtle gradient for 3D
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     padding: "20px",
+    
+    boxShadow: `
+      inset 0 20px 40px rgba(0,0,0,0.6),
+      inset 0 -20px 40px rgba(255,255,255,0.2),
+      inset 10px 10px 30px rgba(0,0,0,0.45),
+      inset -10px -10px 30px rgba(255,255,255,0.15)
+    `,
   };
 
   const registrationBoxStyle = {
     background: "#ffffff",
-    borderRadius: "0px",
-    boxShadow: "0 8px 20px rgba(0,0,0,0.15)",
+    borderRadius: "12px",
+    boxShadow: `
+      inset 0 2px 6px rgba(0,0,0,0.1),
+      0 8px 20px rgba(0,0,0,0.2)
+    `,
     overflow: "hidden",
-    width: "380px", // fixed width like screenshot
-    minHeight: "400px", 
+    width: "380px",
+    minHeight: "400px",
     position: "relative",
   };
 
   const tabsStyle = {
     display: "flex",
-    background: "#222", // dark bg like screenshot
+    background: "#222",
+    boxShadow: "inset 0 -3px 6px rgba(255,255,255,0.1)", // 3D inset shadow
   };
 
   const tabStyle = {
@@ -68,17 +79,19 @@ const RegistrationForm = () => {
     fontWeight: "600",
     cursor: "pointer",
     transition: "all 0.3s ease",
+    boxShadow: "inset 0 2px 4px rgba(0,0,0,0.2)",
   };
 
   const activeTabStyle = {
     ...tabStyle,
-    background: activeTab === "school" ? "#fbbf24" : "#374151", // yellow for school, grey for student
+    background: activeTab === "school" ? "#fbbf24" : "#374151",
     color: "#000",
     fontWeight: "700",
+    boxShadow: "inset 0 3px 6px rgba(0,0,0,0.4)", // deeper 3D effect
   };
 
   const formContentStyle = {
-    padding: "24px 28px", // reduced padding
+    padding: "24px 28px",
     background: "#ffffff",
   };
 
@@ -95,18 +108,21 @@ const RegistrationForm = () => {
     width: "100%",
     padding: "12px 14px",
     marginBottom: "12px",
-    border: "1px solid #000", // dark border
-    borderRadius: "4px", // square-ish
+    border: "1px solid #ccc",
+    borderRadius: "6px",
     fontSize: "13px",
     color: "#374151",
-    background: "#ffffff",
+    background: "#f9f9f9",
     outline: "none",
     boxSizing: "border-box",
+    boxShadow: "inset 0 2px 4px rgba(0,0,0,0.1)",
+    transition: "all 0.2s ease",
   };
 
   const inputFocusStyle = {
     borderColor: "#0d3b8c",
-    boxShadow: "0 0 0 2px rgba(13, 59, 140, 0.15)",
+    boxShadow: "inset 0 2px 6px rgba(0,0,0,0.25)",
+    background: "#fff",
   };
 
   const selectStyle = {
@@ -130,31 +146,34 @@ const RegistrationForm = () => {
   const signupBtnStyle = {
     width: "100%",
     padding: "12px",
-    background: "#0d3b8c", // dark blue like screenshot
+    background: "linear-gradient(145deg, #0d3b8c, #2563eb)",
     color: "white",
     border: "none",
-    borderRadius: "2px", // sharp edges
+    borderRadius: "6px",
     fontSize: "16px",
     fontWeight: "600",
     cursor: "pointer",
     marginTop: "8px",
     textTransform: "uppercase",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+    transition: "all 0.2s ease",
   };
 
   return (
     <div style={containerStyle}>
-       {/* Left headline */}
-    <h1
-      style={{
-        flex: 1,
-        color: "#d77b7b", 
-        fontSize: "35px",
-        fontWeight: "800",
-        margin: "40px 20px 0 150px",
-      }}
-    >
-      MINDS MARATHON World's Biggest Olympiad
-    </h1>
+      {/* Left headline */}
+      <h1
+        style={{
+          flex: 1,
+          color: "#d77b7b",
+          fontSize: "35px",
+          fontWeight: "800",
+          margin: "40px 20px 0 150px",
+        }}
+      >
+        MINDS MARATHON World's Biggest Olympiad
+      </h1>
+
       <div style={registrationBoxStyle}>
         {/* Tabs */}
         <div style={tabsStyle}>
@@ -174,7 +193,6 @@ const RegistrationForm = () => {
 
         {/* Form */}
         <div style={formContentStyle}>
-          
           {activeTab === "school" ? (
             <>
               <h2 style={titleStyle}>REGISTER YOUR SCHOOL</h2>
@@ -186,36 +204,27 @@ const RegistrationForm = () => {
                 placeholder="Enter School Name"
                 style={inputStyle}
                 onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "#000";
-                  e.target.style.boxShadow = "none";
-                }}
+                onBlur={(e) => Object.assign(e.target.style, inputStyle)}
               />
               <input
                 type="text"
-                name="mobile"
-                value={formData.mobile}
+                name="mobileNo"
+                value={formData.mobileNo}
                 onChange={handleChange}
                 placeholder="Enter Principal's/School's Mobile Number"
                 style={inputStyle}
                 onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "#000";
-                  e.target.style.boxShadow = "none";
-                }}
+                onBlur={(e) => Object.assign(e.target.style, inputStyle)}
               />
               <input
                 type="email"
-                name="schoolEmail"
-                value={formData.schoolEmail}
+                name="schoolEmailId"
+                value={formData.schoolEmailId}
                 onChange={handleChange}
                 placeholder="Enter School E-Mail ID"
                 style={inputStyle}
                 onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                onBlur={(e) => {
-                  e.target.style.borderColor = "#000";
-                  e.target.style.boxShadow = "none";
-                }}
+                onBlur={(e) => Object.assign(e.target.style, inputStyle)}
               />
               <button style={signupBtnStyle} onClick={handleSubmit}>
                 SIGN UP

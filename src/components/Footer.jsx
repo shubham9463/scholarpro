@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { studentLogout } from "../api/studentApi";
 import {
   FaFacebookF,
@@ -11,14 +12,12 @@ import {
 import { toast } from "react-toastify";
 
 const Footer = () => {
-
-
   const handleLogout = async () => {
     try {
       const res = await studentLogout();
       if (res.status === 200) {
         localStorage.removeItem("isLoggedIn");
-        toast.success("Logged out successfull");
+        toast.success("Logged out successfully");
       } else {
         toast.error("Logout failed");
       }
@@ -27,7 +26,6 @@ const Footer = () => {
       toast.error("Something went wrong during logout");
     }
   };
-
 
   const columnStyle = {
     flex: "1",
@@ -41,7 +39,7 @@ const Footer = () => {
     fontWeight: "bold",
     fontSize: "18px",
     marginBottom: "15px",
-    borderBottom: "2px solid #f39c12", // orange underline
+    borderBottom: "2px solid #f39c12",
     display: "inline-block",
     paddingBottom: "5px",
     letterSpacing: "0.5px",
@@ -56,9 +54,7 @@ const Footer = () => {
     transition: "color 0.3s ease",
   };
 
-  const linkHoverStyle = {
-    color: "#f39c12", // orange on hover
-  };
+  const linkHoverStyle = { color: "#f39c12" };
 
   const contactStyle = {
     color: "#fff",
@@ -113,29 +109,43 @@ const Footer = () => {
       <div style={columnStyle}>
         <h3 style={headingStyle}>Olympiad Info</h3>
         {[
-          "About Us",
-          "Blogs",
-          "Olympiad Exam Schedule",
-          "Olympiad Winners",
-          "Olympiad Exam Sample Papers",
-          "How to Prepare for Olympiad Exam",
-          "Olympiad Ranking",
-          "Olympiad Features & Benefits",
-          "FAQ",
-          "Olympiad Syllabus",
-        ].map((item, idx) => (
-          <a
-            key={idx}
-            style={linkStyle}
-            href="#"
-            onMouseOver={(e) =>
-              (e.currentTarget.style.color = linkHoverStyle.color)
-            }
-            onMouseOut={(e) => (e.currentTarget.style.color = "#fff")}
-          >
-            {item}
-          </a>
-        ))}
+          { name: "About Us", path: "/about-us" },
+          { name: "Blogs", path: "#" },
+          { name: "Olympiad Exam Schedule", path: "/olympiad-exam-schedule" },
+          { name: "Olympiad Winners", path: "#" },
+          { name: "Olympiad Exam Sample Papers", path: "#" },
+          { name: "How to Prepare for Olympiad Exam", path: "/how-to-prepare" },
+          { name: "Olympiad Ranking", path: "/olympiad-ranking" },
+          { name: "Olympiad Features & Benefits", path: "/olympiad-features-benefits" },
+          { name: "FAQ", path: "/faq" },
+          { name: "Olympiad Syllabus", path: "#" },
+        ].map((item, idx) =>
+          item.path.startsWith("/") ? (
+            <Link
+              key={idx}
+              to={item.path}
+              style={linkStyle}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.color = linkHoverStyle.color)
+              }
+              onMouseOut={(e) => (e.currentTarget.style.color = "#fff")}
+            >
+              {item.name}
+            </Link>
+          ) : (
+            <a
+              key={idx}
+              href={item.path}
+              style={linkStyle}
+              onMouseOver={(e) =>
+                (e.currentTarget.style.color = linkHoverStyle.color)
+              }
+              onMouseOut={(e) => (e.currentTarget.style.color = "#fff")}
+            >
+              {item.name}
+            </a>
+          )
+        )}
       </div>
 
       {/* Other Links */}
@@ -169,7 +179,7 @@ const Footer = () => {
       <div style={columnStyle}>
         <h3 style={headingStyle}>Contact Info</h3>
         <p style={contactStyle}>
-          <b>Tol Free:</b>{" "}
+          <b>Toll Free:</b>{" "}
           <span style={{ color: "#f39c12" }}>1800 266 9192</span>
         </p>
         <p style={contactStyle}>022 2517 0711</p>
@@ -196,41 +206,36 @@ const Footer = () => {
         </p>
 
         <div style={{ display: "flex", gap: "12px", marginTop: "15px" }}>
-          {[
-            FaFacebookF,
-            FaLinkedinIn,
-            FaInstagram,
-            FaYoutube,
-            FaPinterestP,
-            FaXTwitter,
-          ].map((Icon, idx) => (
-            <a
-              key={idx}
-              href="#"
-              style={{
-                color: "#fff",
-                fontSize: "18px",
-                border: "1px solid #fff",
-                borderRadius: "50%",
-                width: "35px",
-                height: "35px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                transition: "all 0.3s ease",
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.background = "#f39c12";
-                e.currentTarget.style.color = "#0b3c87";
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#fff";
-              }}
-            >
-              <Icon />
-            </a>
-          ))}
+          {[FaFacebookF, FaLinkedinIn, FaInstagram, FaYoutube, FaPinterestP, FaXTwitter].map(
+            (Icon, idx) => (
+              <a
+                key={idx}
+                href="#"
+                style={{
+                  color: "#fff",
+                  fontSize: "18px",
+                  border: "1px solid #fff",
+                  borderRadius: "50%",
+                  width: "35px",
+                  height: "35px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  transition: "all 0.3s ease",
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = "#f39c12";
+                  e.currentTarget.style.color = "#0b3c87";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "#fff";
+                }}
+              >
+                <Icon />
+              </a>
+            )
+          )}
         </div>
       </div>
     </footer>
