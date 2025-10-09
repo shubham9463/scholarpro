@@ -19,7 +19,7 @@ import AwardSection from "./components/AwardSection.jsx";
 import Registration from "./components/Registration.jsx";
 import SchoolRegistrationForm from "./components/pages/SchoolRegistrationForm.jsx";
 import StudentRegistration from "./components/pages/StudentRegistration.jsx";
-import ScienceOlympiad from "./components/TabPage/OlympiadPages/sciencePages/ScienceOlympiad.jsx";
+import ScienceOlympiad from "./components/TabPage/OlympiadPages/SciencePages/ScienceOlympiad.jsx";
 import Class1Page from "./components/TabPage/OlympiadPages/sciencePages/Class1Page.jsx";
 import Class2Page from "./components/TabPage/OlympiadPages/sciencePages/Class2Page.jsx";
 import Class3Page from "./components/TabPage/OlympiadPages/sciencePages/Class3Page.jsx";
