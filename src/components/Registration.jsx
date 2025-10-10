@@ -38,16 +38,16 @@ const RegistrationForm = () => {
     justifyContent: "flex-end",
     alignItems: "flex-start",
     minHeight: "63vh",
-    background: "linear-gradient(145deg, #6c0d0f, #4d0709)", // subtle gradient for 3D
+    background: "linear-gradient(145deg, #6c0d0f, #4d0709)",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
     padding: "20px",
-    
     boxShadow: `
       inset 0 20px 40px rgba(0,0,0,0.6),
       inset 0 -20px 40px rgba(255,255,255,0.2),
       inset 10px 10px 30px rgba(0,0,0,0.45),
       inset -10px -10px 30px rgba(255,255,255,0.15)
     `,
+    flexWrap: "wrap", // allow wrapping on smaller screens
   };
 
   const registrationBoxStyle = {
@@ -66,7 +66,7 @@ const RegistrationForm = () => {
   const tabsStyle = {
     display: "flex",
     background: "#222",
-    boxShadow: "inset 0 -3px 6px rgba(255,255,255,0.1)", // 3D inset shadow
+    boxShadow: "inset 0 -3px 6px rgba(255,255,255,0.1)",
   };
 
   const tabStyle = {
@@ -87,7 +87,7 @@ const RegistrationForm = () => {
     background: activeTab === "school" ? "#fbbf24" : "#374151",
     color: "#000",
     fontWeight: "700",
-    boxShadow: "inset 0 3px 6px rgba(0,0,0,0.4)", // deeper 3D effect
+    boxShadow: "inset 0 3px 6px rgba(0,0,0,0.4)",
   };
 
   const formContentStyle = {
@@ -160,142 +160,192 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div style={containerStyle}>
-      {/* Left headline */}
-      <h1
-        style={{
-          flex: 1,
-          color: "#d77b7b",
-          fontSize: "35px",
-          fontWeight: "800",
-          margin: "40px 20px 0 150px",
-        }}
-      >
-        MINDS MARATHON World's Biggest Olympiad
-      </h1>
+    <>
+      {/* --- RESPONSIVE STYLES --- */}
+      <style>
+        {`
+          @media (max-width: 1024px) {
+            h1 {
+              font-size: 28px !important;
+              margin: 20px !important;
+              text-align: center !important;
+            }
+          }
 
-      <div style={registrationBoxStyle}>
-        {/* Tabs */}
-        <div style={tabsStyle}>
-          <button
-            style={activeTab === "school" ? activeTabStyle : tabStyle}
-            onClick={() => setActiveTab("school")}
-          >
-            For School
-          </button>
-          <button
-            style={activeTab === "student" ? activeTabStyle : tabStyle}
-            onClick={() => setActiveTab("student")}
-          >
-            For Students
-          </button>
-        </div>
+          @media (max-width: 768px) {
+            div[style*="minHeight: 63vh"] {
+              flex-direction: column !important;
+              align-items: center !important;
+              justify-content: center !important;
+              padding: 10px !important;
+            }
+            h1 {
+              font-size: 24px !important;
+              margin: 20px 0 !important;
+              text-align: center !important;
+            }
+            div[style*="width: 380px"] {
+              width: 90% !important;
+              margin: 0 auto !important;
+            }
+          }
 
-        {/* Form */}
-        <div style={formContentStyle}>
-          {activeTab === "school" ? (
-            <>
-              <h2 style={titleStyle}>REGISTER YOUR SCHOOL</h2>
-              <input
-                type="text"
-                name="schoolName"
-                value={formData.schoolName}
-                onChange={handleChange}
-                placeholder="Enter School Name"
-                style={inputStyle}
-                onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                onBlur={(e) => Object.assign(e.target.style, inputStyle)}
-              />
-              <input
-                type="text"
-                name="mobileNo"
-                value={formData.mobileNo}
-                onChange={handleChange}
-                placeholder="Enter Principal's/School's Mobile Number"
-                style={inputStyle}
-                onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                onBlur={(e) => Object.assign(e.target.style, inputStyle)}
-              />
-              <input
-                type="email"
-                name="schoolEmailId"
-                value={formData.schoolEmailId}
-                onChange={handleChange}
-                placeholder="Enter School E-Mail ID"
-                style={inputStyle}
-                onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
-                onBlur={(e) => Object.assign(e.target.style, inputStyle)}
-              />
-              <button style={signupBtnStyle} onClick={handleSubmit}>
-                SIGN UP
-              </button>
-            </>
-          ) : (
-            <>
-              <h2 style={titleStyle}>REGISTER NOW</h2>
-              <div style={gridStyle}>
+          @media (max-width: 480px) {
+            h1 {
+              font-size: 20px !important;
+              line-height: 1.4 !important;
+            }
+            input, select, button {
+              font-size: 12px !important;
+              padding: 10px !important;
+            }
+            div[style*="grid-template-columns: 1fr 1fr"] {
+              grid-template-columns: 1fr !important;
+            }
+            div[style*="width: 380px"] {
+              width: 95% !important;
+            }
+          }
+        `}
+      </style>
+
+      <div style={containerStyle}>
+        {/* Left headline */}
+        <h1
+          style={{
+            flex: 1,
+            color: "#d77b7b",
+            fontSize: "35px",
+            fontWeight: "800",
+            margin: "40px 20px 0 150px",
+          }}
+        >
+          MINDS MARATHON World's Biggest Olympiad
+        </h1>
+
+        <div style={registrationBoxStyle}>
+          {/* Tabs */}
+          <div style={tabsStyle}>
+            <button
+              style={activeTab === "school" ? activeTabStyle : tabStyle}
+              onClick={() => setActiveTab("school")}
+            >
+              For School
+            </button>
+            <button
+              style={activeTab === "student" ? activeTabStyle : tabStyle}
+              onClick={() => setActiveTab("student")}
+            >
+              For Students
+            </button>
+          </div>
+
+          {/* Form */}
+          <div style={formContentStyle}>
+            {activeTab === "school" ? (
+              <>
+                <h2 style={titleStyle}>REGISTER YOUR SCHOOL</h2>
                 <input
                   type="text"
-                  name="studentName"
-                  value={formData.studentName}
+                  name="schoolName"
+                  value={formData.schoolName}
                   onChange={handleChange}
-                  placeholder="Enter Student's Name"
+                  placeholder="Enter School Name"
                   style={inputStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => Object.assign(e.target.style, inputStyle)}
+                />
+                <input
+                  type="text"
+                  name="mobileNo"
+                  value={formData.mobileNo}
+                  onChange={handleChange}
+                  placeholder="Enter Principal's/School's Mobile Number"
+                  style={inputStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => Object.assign(e.target.style, inputStyle)}
                 />
                 <input
                   type="email"
-                  name="parentEmail"
-                  value={formData.parentEmail}
+                  name="schoolEmailId"
+                  value={formData.schoolEmailId}
                   onChange={handleChange}
-                  placeholder="Enter Parent's Email Id"
+                  placeholder="Enter School E-Mail ID"
                   style={inputStyle}
+                  onFocus={(e) => Object.assign(e.target.style, inputFocusStyle)}
+                  onBlur={(e) => Object.assign(e.target.style, inputStyle)}
                 />
-                <input
-                  type="text"
-                  name="parentName"
-                  value={formData.parentName}
-                  onChange={handleChange}
-                  placeholder="Enter Parent's Name"
-                  style={inputStyle}
-                />
-                <select
-                  name="standard"
-                  value={formData.standard}
-                  onChange={handleChange}
-                  style={selectStyle}
-                >
-                  <option value="">Select Standard</option>
-                  {[...Array(10)].map((_, i) => (
-                    <option key={i + 1} value={`Class ${i + 1}`}>
-                      Class {i + 1}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="text"
-                  name="studentMobile"
-                  value={formData.studentMobile}
-                  onChange={handleChange}
-                  placeholder="Enter Mobile Number"
-                  style={inputStyle}
-                />
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Enter Password"
-                  style={inputStyle}
-                />
-              </div>
-              <button style={signupBtnStyle} onClick={handleSubmit}>
-                SIGN UP
-              </button>
-            </>
-          )}
+                <button style={signupBtnStyle} onClick={handleSubmit}>
+                  SIGN UP
+                </button>
+              </>
+            ) : (
+              <>
+                <h2 style={titleStyle}>REGISTER NOW</h2>
+                <div style={gridStyle}>
+                  <input
+                    type="text"
+                    name="studentName"
+                    value={formData.studentName}
+                    onChange={handleChange}
+                    placeholder="Enter Student's Name"
+                    style={inputStyle}
+                  />
+                  <input
+                    type="email"
+                    name="parentEmail"
+                    value={formData.parentEmail}
+                    onChange={handleChange}
+                    placeholder="Enter Parent's Email Id"
+                    style={inputStyle}
+                  />
+                  <input
+                    type="text"
+                    name="parentName"
+                    value={formData.parentName}
+                    onChange={handleChange}
+                    placeholder="Enter Parent's Name"
+                    style={inputStyle}
+                  />
+                  <select
+                    name="standard"
+                    value={formData.standard}
+                    onChange={handleChange}
+                    style={selectStyle}
+                  >
+                    <option value="">Select Standard</option>
+                    {[...Array(10)].map((_, i) => (
+                      <option key={i + 1} value={`Class ${i + 1}`}>
+                        Class {i + 1}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="text"
+                    name="studentMobile"
+                    value={formData.studentMobile}
+                    onChange={handleChange}
+                    placeholder="Enter Mobile Number"
+                    style={inputStyle}
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Enter Password"
+                    style={inputStyle}
+                  />
+                </div>
+                <button style={signupBtnStyle} onClick={handleSubmit}>
+                  SIGN UP
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

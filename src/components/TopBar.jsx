@@ -31,7 +31,9 @@ const TopBar = () => {
         alignItems: 'center', 
         fontSize: '14px',
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        whiteSpace: 'nowrap', // ✅ prevent line breaks
+        overflow: 'hidden',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
           {contactItems.map((item, index) => (
@@ -55,7 +57,7 @@ const TopBar = () => {
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
-              <span>{item.icon}</span> {/* ✅ just render emoji */}
+              <span>{item.icon}</span> {/* ✅ emoji */}
               <span style={{ fontWeight: '500' }}>{item.text}</span>
             </div>
           ))}
@@ -89,18 +91,81 @@ const TopBar = () => {
               boxShadow: '0 4px 8px rgba(220, 38, 38, 0.3)',
               transition: 'all 0.3s ease'
             }}>
-              <Play size={16} color="white" /> {/* ✅ fixed */}
+              <Play size={16} color="white" />
             </div>
             <span style={{ fontWeight: '500' }}>YouTube</span>
           </div>
         </div>
       </div>
 
-      {/* CSS Animations */}
+      {/* CSS Animations + Responsiveness */}
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
           50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        /* ---------- RESPONSIVE ADJUSTMENTS ---------- */
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+          div[style*="maxWidth: 1280px"] {
+            font-size: 13px !important;
+          }
+          div[style*="gap: 32px"] {
+            gap: 20px !important;
+          }
+          div[style*="padding: 10px 16px"] {
+            padding: 8px 12px !important;
+          }
+          div[style*="width: 28px"] {
+            width: 26px !important;
+            height: 26px !important;
+          }
+        }
+
+        /* Large Phones */
+        @media (max-width: 768px) {
+          div[style*="maxWidth: 1280px"] {
+            font-size: 12px !important;
+          }
+          div[style*="gap: 32px"] {
+            gap: 16px !important;
+          }
+          div[style*="padding: 10px 16px"] {
+            padding: 6px 10px !important;
+          }
+          span {
+            font-size: 12px !important;
+          }
+          div[style*="width: 28px"] {
+            width: 24px !important;
+            height: 24px !important;
+          }
+        }
+
+        /* Small Phones */
+        @media (max-width: 480px) {
+          div[style*="maxWidth: 1280px"] {
+            font-size: 11px !important;
+            justify-content: space-between !important;
+          }
+          div[style*="gap: 32px"] {
+            gap: 10px !important;
+          }
+          div[style*="padding: 10px 16px"] {
+            padding: 4px 8px !important;
+          }
+          span {
+            font-size: 11px !important;
+          }
+          div[style*="width: 28px"] {
+            width: 22px !important;
+            height: 22px !important;
+          }
+          .lucide-play {
+            transform: scale(0.8);
+          }
         }
       `}</style>
     </div>
