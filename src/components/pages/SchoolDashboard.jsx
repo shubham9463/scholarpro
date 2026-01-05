@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import SchoolSidebar from "../schoolDashboard/SchoolSideBar.jsx";
+import SchoolProfile from "../schoolDashboard/SchoolProfile.jsx";
+import SchoolStudents from "../schoolDashboard/SchoolStudents.jsx";  // <-- ADD THIS
 
 export default function SchoolDashboard() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [tab, setTab] = useState("home");
+  const [tab, setTab] = useState("dashboard");
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const tabFromUrl = params.get("tab");
-    setTab(tabFromUrl || "home");
+    setTab(tabFromUrl || "dashboard");
   }, [location.search]);
 
   const handleTabChange = (newTab) => {
@@ -19,53 +22,40 @@ export default function SchoolDashboard() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flex: 1,
-        alignItems: "stretch",
-        minHeight: "calc(100vh - 160px)", // fits perfectly between navbar & footer
-        backgroundColor: "#f9fafb",
-        overflow: "hidden", // removes any page scrollbars
-      }}
-    >
-      {/* Sidebar */}
-      <div
-        style={{
-          width: "240px",
-          backgroundColor: "#1e293b",
-          borderRight: "1px solid #334155",
-          flexShrink: 0,
-          overflow: "hidden", // no scrollbars here
-          height: "auto",
-        }}
-      >
-        <SchoolSidebar activeTab={tab} onTabChange={handleTabChange} />
-      </div>
+    <div style={{ height: "100vh", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      
+      {/* MAIN SECTION */}
+      <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+        
+        {/* LEFT SIDEBAR */}
+        <div style={{ width: "240px", background: "#1e293b", flexShrink: 0 }}>
+          <SchoolSidebar activeTab={tab} onTabChange={handleTabChange} />
+        </div>
 
-      {/* Main Content */}
-      <div
-        style={{
-          flex: 1,
-          padding: "30px 40px",
-          overflow: "auto", // only content scrolls if needed
-        }}
-      >
-        <h2
+        {/* RIGHT SECTION */}
+        <div
           style={{
-            color: "#0f172a",
-            fontWeight: "700",
-            fontSize: "1.8rem",
-            marginBottom: "10px",
+            flex: 1,
+            overflowY: "auto",
+            padding: "30px 40px",
+            background: "#f8fafc",
           }}
         >
-          🏫 School Dashboard
-        </h2>
-        <p style={{ color: "#475569", fontSize: "1rem" }}>
-          Welcome to the <strong>Mind Marathon School Panel</strong>. Manage
-          your students, results, and certificates here.
-        </p>
+          {/* School Dashboard */}
+          {tab === "dashboard" && <SchoolProfile />}
+
+          {/* Students Page (Your JSON component) */}
+          {tab === "students" && <SchoolStudents />}
+
+          {/* Other Pages */}
+          {tab === "results" && <h2>Results Section Coming Soon</h2>}
+          {tab === "certificates" && <h2>Certificates Section Coming Soon</h2>}
+          {tab === "admitCards" && <h2>Admit Cards Section Coming Soon</h2>}
+          {tab === "enquiries" && <h2>Enquiries Section Coming Soon</h2>}
+          {tab === "settings" && <h2>Settings Section Coming Soon</h2>}
+        </div>
       </div>
+
     </div>
   );
 }

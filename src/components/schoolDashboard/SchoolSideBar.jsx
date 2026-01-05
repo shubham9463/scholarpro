@@ -13,12 +13,13 @@ import {
 export default function SchoolSidebar() {
   const navigate = useNavigate();
   const [active, setActive] = useState("dashboard");
+  
 
   // 🏫 Dummy school name for now
   const schoolName = "Green Valley High School";
 
   const menuItems = [
-    { id: "dashboard", label: "Dashboard", icon: Home, path: "/school/dashboard" },
+    { id: "dashboard", label: "Profile", icon: Home, path: "/school/dashboard" },
     { id: "students", label: "Students", icon: Users, path: "/school/students" },
     { id: "results", label: "Results", icon: BarChart2, path: "/school/results" },
     { id: "certificates", label: "Certificates", icon: Award, path: "/school/certificates" },

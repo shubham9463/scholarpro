@@ -24,6 +24,7 @@ const StudentRegistration = () => {
     schoolCity: "",
     schoolPincode: "",
     academicYear: "2025-26",
+    board: "", // ✅ Added Board
     agreeTerms: false,
     currency: "Rupees",
   });
@@ -48,7 +49,6 @@ const StudentRegistration = () => {
       navigate("/"); // ✅ After successful registration
     } catch (error) {
       console.error("Error:", error);
-
       if (
         error.response &&
         error.response.data &&
@@ -307,7 +307,7 @@ const StudentRegistration = () => {
         />
       </div>
 
-      {/* Academic Year */}
+      {/* Academic Year & Board */}
       <div style={styles.formRow}>
         <select
           style={styles.select}
@@ -318,6 +318,19 @@ const StudentRegistration = () => {
           <option value="2025-26">2025-26</option>
           <option value="2026-27">2026-27</option>
           <option value="2027-28">2027-28</option>
+        </select>
+
+        <select
+          style={styles.select}
+          name="board"
+          value={formData.board}
+          onChange={handleChange}
+        >
+          <option value="">Select Board</option>
+          <option value="CBSE">CBSE</option>
+          <option value="Bihar Board">Bihar Board</option>
+          <option value="ICSE">ICSE</option>
+          <option value="State Board">State Board</option>
         </select>
       </div>
 
